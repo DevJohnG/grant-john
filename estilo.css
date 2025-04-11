@@ -1,5 +1,10 @@
 body{
+    background-image: url('');
+    display: flex;
+    align-items: center;
     justify-content: center;
+    justify-items: center;
+    max-height: 100vh;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -44,15 +49,16 @@ div{
 }
 
 .tarjeta {
+    margin-top: 15px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
     position: relative;
     background-color:whitesmoke;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s;
+    width: 50%;
     padding: 15px;
 }
