@@ -1,11 +1,13 @@
-body{
-    background-image: url('');
+body {
+    background-image: url('Tokyo.jpeg');
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-items: center;
-    max-height: 100vh;
+    height: 100vh;
+    margin: 0;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: relative;
 }
 
 aside{
@@ -26,13 +28,12 @@ div{
 .nombre{
     justify-content: center;
     align-items: center;
+    font-weight:900;
 }
 
 .boton{
     color: black;
     bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
     cursor: pointer;
     justify-content: center;
     background-color:burlywood;
