@@ -23,6 +23,7 @@ div{
 .perfil {
     border-radius: 125px;
     margin-right: 50px;
+    cursor: pointer;
 }
 
 .nombre{
@@ -32,15 +33,16 @@ div{
 }
 
 .boton{
-    color: black;
+    color: white;
+    border-color: white;
     bottom: 15px;
     cursor: pointer;
     justify-content: center;
-    background-color:burlywood;
+    background-color:cadetblue;
     border-radius: 15px;
     padding: 15px;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-weight: bolder;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -58,8 +60,25 @@ div{
     position: relative;
     background-color:whitesmoke;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
     transition: transform 0.3s;
     width: 50%;
+    padding: 30px;
+}
+
+.hobbies{
+    display: flex;
+    flex-direction: row;
     padding: 15px;
+    align-items: center;
+    text-align: center;
+}
+
+.hobTitu{
+    font-weight: bolder;
+}
+
+.wzImg{
+    width: 150px;
+    height: 75px;
 }
