@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleLab2.css">
+    <title>Laboratorio 2</title>
+</head>
+
+<script>
+
+// Operaciones
+
+    var j = 31;
+    var m = 2;
+
+    function Suma(a, b) {
+        return a + b;
+    }
+
+    function Resta(a, b) {
+        return a - b;
+    }
+
+    function Multiplicación(a, b) {
+        return a * b;
+    }
+
+    function División(a, b) {
+        return a / b;
+    }
+
+    console.log("OPERACIONES:");
+    console.log("Suma: " + Suma(j, m));
+    console.log("Resta: " + Resta(j, m));
+    console.log("Multiplicación: " + Multiplicación(j, m));
+    console.log("División: " + División(j, m));
+    console.log("")
+
+// Concatenación de cadenas
+
+    let nombres = "John Elliot";
+    let apellido = "Grant";
+
+    console.log("CONCATENACIÓN DE CADENAS:");
+    console.log("Nombre completo: " + nombres + " " + apellido);
+    console.log("")
+
+// Tipo de dato
+
+const x = "2025";
+const y = 2025;
+
+console.log("TIPO DE DATO:");
+console.log("El tipo de dato de x es: " + typeof x);
+console.log("El tipo de dato de y es: " + typeof y);
+console.log("")
+
+// Objeto
+
+var mulino = {
+    nombre: "Mulino",
+    proyectos: 0,
+    aportado: false,
+    ventas: {
+        v1: "Vendió el canal a USA",
+    },
+}
+
+console.log("OBJETO:");
+console.log("Nombre: " + mulino.nombre);
+console.log("Proyectos: " + mulino.proyectos);
+console.log("Aportaciones al país: " + mulino.aportado);
+console.log("Ventas: " + mulino.ventas.v1);
+console.log("")
+
+// Vocales
+
+function contarVocales(cadena) {
+    let contador = 0;
+    const vocales = "aeiouAEIOU";
+    for (let char of cadena) {
+        if (vocales.includes(char)) {
+            contador++;
+        }
+    }
+    return contador;
+}
+
+console.log("VOCALES:");
+console.log("Cantidad de vocales: " + contarVocales("Desarrollador"));
+
+
+</script>
+
+<body>
+
+<h1>LABORATORIO 2 - John Grant</h1>
+<br>
+<h3>¿Qué es Javascript y en qué se asemeja a Java?</h3>
+<p>Javascript es un lenguaje de programación orientado a objetos enfocado al backend. <br
+    A pesar de la similitud en sus nombres, no tiene ninguna relación con Java</p>
+
+</body>
+</html>
