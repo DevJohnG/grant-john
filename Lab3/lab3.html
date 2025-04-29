@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LABORATORIO 3</title>
+</head>
+
+<body
+    style="display: flex;padding-top: 20px;justify-content: center; color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    align-items: center;background-image: url('https://denomades.s3.us-west-2.amazonaws.com/blog/wp-content/uploads/2024/07/31024610/Berlin-Medium.jpg');display: flex;justify-content: center;flex-direction: column;text-align: center;">
+
+    <section style="align-items: center; padding: 50px ;background-color: rgba(255, 255, 255, 0.8);
+    width: 50%;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.9); border-radius: 25px;">
+        <h1>LABORATORIO 3</h1>
+        <hr>
+        <br>
+        <p style="font-weight: bold;">PROBLEMA 1: PALÍNDROMO</p>
+        <div style="display: flex;justify-content: center;align-items: center;">
+            <h4>Digite un número:</h4>
+            <input id="nInp" style="text-align: center;margin-left: 15px;width: 100px;height: 15px;"
+             oninput="numlim(inp)" type="number" maxlength="7" >
+        </div>
+        <br>
+        <div id="p1">
+        </div>
+        <p style="font-weight: bold;">PROBLEMA 2: CANTIDAD DE CARÁCTERES</p>
+        <div style="display: flex;justify-content: center;align-items: center;">
+            <h4>Digite un carácter:</h4>
+            <input id="car" pattern="A-Za-z" title="SOLO SE PERMITEN LETRAS" onkeypress="return soloLetras(inp)"
+                maxlength="25" style="text-align: center;margin-left: 15px;width: 300px;height: 15px;" type="text">
+        </div>
+        <br>
+        <div id="p2">
+        </div>
+        <p style="font-weight: bold;">PROBLEMA 3: AÑO BISIESTO</p>
+        <br>
+        <div id="p3">
+        </div>
+        <p style="font-weight: bold;">PROBLEMA 4: NÚMEROS PRIMOS</p>
+        <br>
+        <div id="p4">
+        </div>
+    </section>
+
+    <script>
+
+        // 1. Palíndromos
+        /*
+                ((t) => {
+                    const App = {
+                        htmlelements: {
+                            p1: documemt.querySelector('p1'),
+                            p1: documemt.querySelector('p2'),
+                            p1: documemt.querySelector('p3'),
+                            p1: documemt.querySelector('p4'),
+                        },
+                        init() {
+                            App.methods.p1();
+                            App.methods.p2();
+                            App.methods.p3();
+                            App.methods.p4();
+                        },
+                        methods: {
+        
+                            p1() {
+                                const element = Appp
+                            }
+        
+                        }
+                    }
+        
+                })("18") */
+
+        //2. CANTIDAD DE CARÁCTERES
+
+        //No poner muchos números
+        function numlim(inp){
+            let a = inp.target;
+            a.value = a.value.slice(0 ,5);
+        }
+
+
+        //Solo ingresar carácteres
+        document.getElementById("car").addEventListener("input", function (inp) {
+            this.value = this.value.replace(/[^A-Za-z]/g, "");
+        });
+
+
+
+    </script>
+</body>
+
+</html>
