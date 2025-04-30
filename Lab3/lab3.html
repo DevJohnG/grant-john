@@ -20,8 +20,8 @@
         <p style="font-weight: bold;">PROBLEMA 1: PALÍNDROMO</p>
         <div style="display: flex;justify-content: center;align-items: center;">
             <h4>Digite un número:</h4>
-            <input id="nInp" style="text-align: center;margin-left: 15px;width: 100px;height: 15px;"
-             oninput="numlim(inp)" type="number" maxlength="7" >
+            <input id="nInp" type="number" style="text-align: center;margin-left: 15px;width: 100px;height: 15px;"
+             oninput="numlim(inp)">
         </div>
         <br>
         <div id="p1">
@@ -30,7 +30,8 @@
         <div style="display: flex;justify-content: center;align-items: center;">
             <h4>Digite un carácter:</h4>
             <input id="car" pattern="A-Za-z" title="SOLO SE PERMITEN LETRAS" onkeypress="return soloLetras(inp)"
-                maxlength="25" style="text-align: center;margin-left: 15px;width: 300px;height: 15px;" type="text">
+                maxlength="25" style="text-align: center;margin-left: 15px;width: 300px;
+                height: 15px;" type="text">
         </div>
         <br>
         <div id="p2">
@@ -79,6 +80,7 @@
         //No poner muchos números
         function numlim(inp){
             let a = inp.target;
+            let value = a.value.replace(/\D/g, "");
             a.value = a.value.slice(0 ,5);
         }
 
