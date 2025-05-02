@@ -1,0 +1,57 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  appearance: textfield;
+}
+
+body{
+    color: black;
+    font-family: 'Lucida Sans','Lucida Sans Regular', 'Lucida Grande','Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    align-items: center;
+    background-image: url('https://denomades.s3.us-west-2.amazonaws.com/blog/wp-content/uploads/2024/07/31024610/Berlin-Medium.jpg');
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding:100px;
+    font-weight: bold;
+}
+
+section{
+    align-items: center; padding: 50px ;background-color: rgba(255, 255, 255, 0.8);
+    width: 50%;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.9); border-radius: 25px;
+}
+
+.dp{
+    display: flex;justify-content: center;align-items: center
+}
+
+.inpNum{
+    text-align: center;margin-left: 15px;width: 100px;height: 15px;
+}
+
+.inpTex{
+    text-align: center;margin-left: 15px;width: 300px;
+    height: 15px;
+}
+
+button{
+    background-color: #dbd812; /* Green */
+    font-weight: bold;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 5px 5px 10px rgba(0.2, 0.2, 0.2, 0.2);
+}
+
+
