@@ -20,7 +20,7 @@
       <input class="inpNum" type="text" pattern="[0-9]" maxlength="7" id="nInp" title="SOLO NÚMEROS">
     </div>
     <br>
-    <div id="p1">
+    <div class="ans" id="p1">
     </div>
     <br>
     <p>PROBLEMA 2: CANTIDAD DE CARÁCTERES</p>
@@ -29,7 +29,7 @@
       <input class="inpTex" id="car" pattern="[A-Za-z]" title="SOLO SE PERMITEN LETRAS" maxlength="25" type="text">
     </div>
     <br>
-    <div id="p2">
+    <div class="ans" id="p2">
     </div>
     <br>
     <p>PROBLEMA 3: AÑO BISIESTO</p>
@@ -39,18 +39,20 @@
         title="SOLO PERMITEN AÑOS DESDE LA IMPLEMENTACIÓN DEL CALENDARIO GREGORIANO" maxlength="4">
     </div>
     <br>
-    <div id="p3">
+    <div class="ans" id="p3">
     </div>
     <br>
     <p>PROBLEMA 4: NÚMEROS PRIMOS</p>
     <div class="dp">
-      <h4>Digite un año:</h4>
+      <h4>Digite un número:</h4>
       <input class="inpNum" type="text" id="prim" pattern="[0-9]"
         title="SOLO PERMITEN NÚMEROS MAYORES A 0 Y MENORES A 1000000" maxlength="7">
     </div>
     <br>
-    <div id="p4">
+    <div class="ans" id="p4">
     </div>
+    <br>
+    <br>
     <button onclick="App.init()">VER SOLUCIÓN</button>
     <br>
   </section>
@@ -61,17 +63,38 @@
         htmlElements: {
           p1: document.querySelector('#p1'),
           inpP1: document.getElementById('nInp'),
-          //p2: document.querySelector('#p2'),
-          //  inpP2: document.getElementById('car'),
-          // p3: document.querySelector('#p3'),
-          //  inpP3: document.getElementById('year'),
-          //  p4: document.querySelector('#p4'),
-          // inp4: document.getElementById('prim'),
+          p2: document.querySelector('#p2'),
+          inpP2: document.getElementById('car'),
+          p3: document.querySelector('#p3'),
+          inpP3: document.getElementById('year'),
+          p4: document.querySelector('#p4'),
+          inpP4: document.getElementById('prim'),
 
         },
         init() {
+
+          App.htmlElements.p1.innerHTML = "";
+          App.htmlElements.p2.innerHTML = "";
+          App.htmlElements.p3.innerHTML = "";
+          App.htmlElements.p4.innerHTML = "";
+
           const inpPr1 = App.htmlElements.inpP1.value;
-          App.methods.isPalindrome(inpPr1);
+          const inpPr2 = App.htmlElements.inpP2.value;
+          const inpPr3 = App.htmlElements.inpP3.value;
+          const inpPr4 = App.htmlElements.inpP4.value;
+
+          if (inpPr1 !== "" && inpPr1 !== null)
+            App.methods.isPalindrome(inpPr1);
+
+          if (inpPr2 !== null && inpPr2 !== "")
+            App.methods.CharCont(inpPr2);
+
+          if (inpPr3 !== null && inpPr3 !== "")
+            App.methods.anioBis(inpPr3);
+
+          if (inpPr4 !== null && inpPr4 !== "")
+            App.methods.SumarPrim(inpPr4);
+
           // Inicializa la lógica de tu aplicación aquí
           // Llama a métodos desde App.methods, inicializa eventos, etc.
           // Ejemplo:
@@ -79,9 +102,9 @@
         },
         methods: {
 
-          isPalindrome(num) {
+          isPalindrome(t) {
             const element = App.htmlElements.p1;
-            const original = parseInt(num);
+            const original = parseInt(t);
             let copy = original;
             let reversed = 0;
 
@@ -96,6 +119,51 @@
               element.innerHTML += `<p>El número ${original} no es un palíndromo.</p>`;
             }
 
+          },
+
+          CharCont(t) {
+            const element = App.htmlElements.p2;
+            let contador = {};
+
+            for (let char of t) {
+              contador[char] = (contador[char] || 0) + 1;
+            }
+            return element.innerHTML += `<p>${JSON.stringify(contador)}</p>`;
+          },
+
+          anioBis(a) {
+            const element = App.htmlElements.p3;
+            let anio = a;
+
+            if (anio % 4 == 0)
+              return element.innerHTML += `<p> ${anio} es un año bisiesto</p>`
+
+            else return element.innerHTML += `<p> ${anio} no es un año bisiesto</p>`
+          },
+
+          VerificarPrim(p) {
+            if (p < 2) return false;
+            if (p === 2) return true;
+            if (p % 2 === 0) return false;
+
+            for (let i = 3; i * i <= p; i += 2) {
+              if (p % i === 0) return false;
+            }
+            return true;
+          },
+
+          SumarPrim(np) {
+            const n = parseInt(np);
+            const element = App.htmlElements.p4;
+            let suma = 0;
+
+            if (n < 0 || isNaN(n))
+              return element.innerHTML += `<p>Los números negativos no son primos, ingrese nuevamente</p>`;
+
+            for (let i = 1; i < n; i++) {
+              if (App.methods.VerificarPrim(i) === true) suma += i;
+            }
+            return element.innerHTML += `<p>La suma de los primos<br>por debajo de su número es: ${suma}</p>`;
           }
 
           // Define los métodos de tu aplicación aquí
