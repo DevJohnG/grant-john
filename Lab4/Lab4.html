@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="StyleLab4.css">
-    <script src="BELab4.js"></script>
 
     <title>Laboratorio 4</title>
 </head>
@@ -14,7 +13,7 @@
 
     <header>
 
-        <h1 class="titleH1" onclick="">LABORATORIO 4</h1>
+        <a class="titleH1" href="https://github.com/DevJohnG/grant-john/tree/main/Lab4">LABORATORIO 4</a>
         <aside class="headerAside">
             <p>John Grant<br>8-983-1525<br>1LS241</p>
         </aside>
@@ -23,12 +22,31 @@
 
     <section class="container">
 
+            <form action="" id="formProduct">
 
+                <div class="formContainer">
+
+                <label>INGRESE UN NÚMERO DEL 1 AL 20</label>
+                <input class="productNumber" id="productNumber" type="text" max="20" maxlength="2">
+
+            </div>
+
+            <br>
+
+            <input class="submitTableButton" id="submitTableButton" type="submit" value="GENERAR TABLA"></button>
+
+            </form>
+
+            <br>
+            <br>
+
+            <div id="productTableContainer"></div>
         
 
     </section>
 
-    
+    <script src="BELab4.js"></script>
+
 </body>
 
 </html>
