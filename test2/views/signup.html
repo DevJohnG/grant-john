@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sign Up</title>
+</head>
+
+<style>
+    body {
+
+        font-family: 'Montserrat', sans-serif;
+        padding: 25px;
+    }
+
+    /*--------------------------- HEADER ------------------------*/
+
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid rgb(197, 197, 197);
+    }
+
+    .booklogo {
+        width: 60px;
+        height: 60px;
+    }
+
+
+    .headerContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+
+    .signUpButton {
+        color: black;
+        text-decoration: none;
+
+    }
+
+    .signUpButton:hover {
+        color: rgb(98, 0, 179);
+    }
+
+    /*--------------------------- CONTENT ------------------------*/
+
+    .contentSection {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .contentDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        width: 500px;
+        background-color: rgb(98, 0, 179);
+        border-radius: 15px;
+        padding: 100px;
+    }
+
+    .inputTitle {
+        text-align: start;
+        margin-right: 25px;
+    }
+
+    .inputStyle {
+        width: 300px;
+        border: none;
+        border-radius: 25px;
+        padding: 10px;
+    }
+
+    .inputStyle:hover {
+        border: none;
+    }
+
+    .buttonStyle {
+        font-weight: bolder;
+        font-size: medium;
+        color: rgb(98, 0, 179);
+        background-color: white;
+        border: 3px solid white;
+        border-radius: 25px;
+        padding: 25px 50px;
+        cursor: pointer;
+    }
+
+    .buttonStyle:hover {
+
+        background-color: rgb(245, 241, 241);
+    }
+</style>
+
+<body>
+
+    <header>
+        <div class="headerContainer"><img class="booklogo" src="\assets\logo.png" alt=""></div>
+        <div class="headerContainer">
+            <h1>Bookshelf</h1>
+        </div>
+        <div class="headerContainer"><a class="signUpButton" href="\views\index.html">Log in</a></div>
+    </header>
+    <br>
+    <section class="contentSection">
+        <div class="contentDiv">
+            <form action="">
+                <h2>Sign Up</h2>
+                <br>
+                <label for="username" class="inputTitle">Username:</label>
+                <input type="text" id="username" name="username" class="inputStyle" maxlength="16"
+                    placeholder="username" required autofocus>
+                <br>
+                <br>
+                <label for="fullname" class="inputTitle">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" class="inputStyle" maxlength="25"
+                    placeholder="full name" required>
+                <br>
+                <br>
+                <label for="password" class="inputTitle">Password:</label>
+                <input type="password" id="password" name="password" class="inputStyle" maxlength="12"
+                    placeholder="password" required>
+                <br>
+                <br>
+                <br>
+                <br>
+                <input type="submit" class="buttonStyle" value="CONTINUE">
+            </form>
+        </div>
+    </section>
+
+</body>
+
+<script>
+    (() => {
+        const App = (() => {
+
+            const htmlElements = {
+                form: document.querySelector('form'),
+            }
+
+            const methods = {
+
+                hashCode(str) {
+
+                    let hash = 0;
+
+                    for (let i = 0; i < str.length; i++) {
+
+                        let chr = str.charCodeAt(i);
+
+                        hash = (hash << 5) - hash + chr;
+
+                        hash |= 0; // Convierte a 32 bits
+
+                    }
+
+                    return hash;
+
+                }
+
+            }
+
+            const handlers = {
+                signUpUser(e) {
+                    e.preventDefault();
+                    const username = htmlElements.form.username.value;
+                    const fullname = htmlElements.form.fullname.value;
+                    const password = htmlElements.form.password.value;
+
+                    const Users = JSON.parse(localStorage.getItem('users')) || []
+                    const isUserRegistered = Users.find(user => user.username === username)
+                    if (isUserRegistered) {
+                        return alert('This user already exist!')
+                    }
+
+                    Users.push({ username: username, fullname: fullname, password: password });
+                    localStorage.setItem('users', JSON.stringify(Users));
+                    localStorage.setItem(`${username}Books`, JSON.stringify([]));
+                    alert('Success!');
+                    window.location.href = 'index.html'
+                }
+            }
+
+            return {
+                init() {
+                    htmlElements.form.addEventListener('submit', handlers.signUpUser);
+                },
+            }
+        })();
+        App.init()
+    })(); 
+</script>
+
+</html>

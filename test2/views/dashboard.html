@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+
+<style>
+    body {
+
+        font-family: 'Montserrat', sans-serif;
+        padding: 25px;
+    }
+
+    /*--------------------------- HEADER ------------------------*/
+
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid rgb(197, 197, 197);
+    }
+
+    .booklogo {
+        width: 60px;
+        height: 60px;
+    }
+
+
+    .headerContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+
+    .headerButtonsContainers {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 125px;
+    }
+
+    .signUpButton {
+        font-family: 'Montseratt', sans-serif;
+        cursor: pointer;
+        font-size: medium;
+        border: none;
+        background-color: white;
+        color: black;
+        text-decoration: none;
+        padding: 0px;
+    }
+
+    .signUpButton:hover {
+        color: rgb(98, 0, 179);
+    }
+
+    /*--------------------------- CONTENT ------------------------*/
+
+    .addBook {
+        color: white;
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        background-color: rgb(98, 0, 179);
+    }
+
+    .card {
+        background-color: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 14px;
+        border-bottom: 1px solid #e2e8f0;
+        text-align: left;
+    }
+
+    th {
+        background-color: rgb(98, 0, 179);
+        color: white;
+        font-weight: 600;
+    }
+
+    tr:hover {
+        background-color: #f9fafb;
+    }
+
+    .deleteButton {
+        font-weight: bolder;
+        width: 100%;
+        height: 50px;
+        font-size: medium;
+        color: rgb(98, 0, 179);
+        background-color: white;
+        border: 3px solid rgb(211, 211, 211);
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    .deleteButton:hover {
+        color: rgb(98, 0, 179);
+        border: 3px solid rgb(98, 0, 179);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .inputTitle {
+        font-weight: bold;
+        text-align: start;
+        font-size: small;
+    }
+
+    .inputStyle {
+        width: 100px;
+        height: 10px;
+        border: none;
+        border-radius: 25px;
+        padding: 10px;
+        margin: 25px;
+    }
+
+    .inputStyle:hover {
+        border: none;
+    }
+
+    .selectStyle {
+        width: 100px;
+        height: 35px;
+        border: none;
+        border-radius: 25px;
+        padding: 10px;
+        margin: 25px;
+        color: black;
+    }
+
+    .buttonDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .buttonStyle {
+        font-weight: bolder;
+        width: 100%;
+        height: 50px;
+        font-size: medium;
+        color: rgb(98, 0, 179);
+        background-color: white;
+        border: 3px solid rgb(211, 211, 211);
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    .buttonStyle:hover {
+
+        color: rgb(98, 0, 179);
+        border: 3px solid rgb(98, 0, 179);
+    }
+</style>
+
+<body>
+
+    <header>
+        <div class="headerContainer"><img class="booklogo" src="\assets\logo.png" alt=""></div>
+        <div class="headerContainer">
+            <h1>Bookshelf</h1>
+        </div>
+        <div class="headerButtonsContainers">
+            <button class="signUpButton" id="logoutButton">Log out</button>
+            <a class="signUpButton" href="\views\profile.html">Profile</a>
+        </div>
+    </header>
+    <br>
+    <section class="contentSection">
+
+        <h2 id="userNameTitle"></h2>
+        <section id="resp" class="card hidden">
+            <h3>Readed books:</h3>
+            <br>
+            <div id="tableContainer"></div>
+        </section>
+        <br>
+        <div class="contentDiv"></div>
+
+        <h4>Add book:</h4>
+        <div class="addBook">
+            <form action="">
+                <label class="inputTitle">Title:</label>
+                <input type="text" id="title" class="inputStyle" placeholder="title" maxlength="50" required autofocus>
+                <label class="inputTitle">Author:</label>
+                <input type="text" id="author" class="inputStyle" placeholder="author" maxlength="25" required>
+                <label class="inputTitle">Date of read:</label>
+                <input type="date" id="date" class="inputStyle" required>
+                <label class="inputTitle">Number of pages:</label>
+                <input type="number" id="pages" class="inputStyle" maxlength="4" placeholder="000" required min="2"
+                    max="9999">
+                <label class="inputTitle">To recommend:</label>
+                <select id="torecommend" class="selectStyle" required>
+                    <option value="Yes" selected>Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <div class="buttonDiv">
+                    <input type="submit" value="ADD" class="buttonStyle">
+            </form>
+            <br>
+        </div>
+        </div>
+        <br>
+        </div>
+    </section>
+
+</body>
+
+
+<script>
+    (() => {
+        const App = (() => {
+
+            const htmlElements = {
+                logout: document.querySelector('#logoutButton'),
+                userTitle: document.querySelector('#userNameTitle'),
+                form: document.querySelector('form'),
+                tableContainer: document.querySelector('section#resp #tableContainer'),
+                resp: document.querySelector('section#resp')
+            }
+
+            const methods = {
+
+                printUserName() {
+
+                    const User = JSON.parse(localStorage.getItem('login_success')) || []
+                    const name = User.fullname
+                    htmlElements.userTitle.innerHTML = `- ${name}`
+                },
+
+                generateRow(book) {
+
+                    return `
+          <tr>
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.readdate}</td>
+            <td>${book.pages}</td>
+            <td>${book.torecommend}</td>
+            <td><button class="deleteButton" data-title="${book.title}">Delete</button></td>
+          </tr>`;
+                },
+
+                generateTable() {
+                    const User = JSON.parse(localStorage.getItem('login_success')) || []
+                    const username = User.username
+                    const actualUserBooks = JSON.parse(localStorage.getItem(`${username}Books`))
+                    let table = '';
+                    actualUserBooks.forEach(book => {
+                        table += methods.generateRow(book)
+                      /*  table += `
+          <tr>
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.readdate}</td>
+            <td>${book.pages}</td>
+            <td>${book.torecommend}</td>
+            <td><button class="deleteButton" data-title="${book.title}">Delete</button></td>
+          </tr>`;*/
+                    });
+
+                    // for (let i = 1; i <= 10; i++) {
+                    //     table += methods.generateRow(title, author, date, pages, torecommend, i);
+                    // }
+                    return `
+              <table>
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Date of read</th>
+                    <th>Number of pages</th>
+                    <th>To Recommend</th>
+                    <th>-<th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${table}
+                </tbody>
+              </table>`;
+                },
+
+                removeRow(e) {
+                    const button = e.target;
+                    const titleToDelete = button.getAttribute('data-title')
+
+                    const User = JSON.parse(localStorage.getItem('login_success')) || {};
+                    const username = User.username;
+                    let userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+
+                    userBooks = userBooks.filter(book => book.title !== titleToDelete)
+
+                    localStorage.setItem(`${username}Books`, JSON.stringify(userBooks))
+
+                    e.target.closest('tr').remove();
+                    alert("Book deleted!")
+                },
+
+                bindEvents() {
+                    htmlElements.resp.querySelectorAll('button').forEach(b => {
+                        b.addEventListener('click', methods.removeRow);
+                    });
+                },
+
+                addBooks(title, author, date, pages, torecommend) {
+                    const booktitle = title
+                    const bookauthor = author
+                    const bookreaddate = date
+                    const bookpages = pages
+                    const booktorecommend = torecommend
+
+                    const User = JSON.parse(localStorage.getItem('login_success')) || false
+                    const username = User.username
+
+                    let userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+                    const books = { title: booktitle, author: bookauthor, readdate: bookreaddate, pages: bookpages, torecommend: booktorecommend }
+                    userBooks.push(books)
+                    console.log(userBooks)
+                    localStorage.setItem(`${username}Books`, JSON.stringify(userBooks))
+                    alert("Your books has been updated!")
+                    window.location.href = 'dashboard.html'
+                },
+
+
+
+            }
+
+            const handlers = {
+
+
+                onProgressSession() {
+                    const user = JSON.parse(localStorage.getItem('login_success')) || false
+                    if (!user) {
+                        window.location.href = 'index.html'
+                    }
+                },
+
+                logOutSession() {
+                    alert('Good bye!')
+                    localStorage.removeItem('login_success')
+                    window.location.href = 'index.html'
+                },
+
+                onFormSubmit(e) {
+                    e.preventDefault();
+                    const title = htmlElements.form.title.value;
+                    const author = htmlElements.form.author.value;
+                    const date = htmlElements.form.date.value;
+                    const pages = htmlElements.form.pages.value;
+                    const torecommend = htmlElements.form.torecommend.value;
+
+                    /* const title = document.querySelector("#title").value;
+                     const author = document.querySelector("#author").value;
+                     const date = document.querySelector("#date").value;
+                     const pages = document.querySelector("#pages").value;
+                     const torecommend = document.querySelector("#torecommend").value;*/
+
+                    console.log(title)
+
+
+                    if (title && author && date && pages && torecommend) {
+                        methods.addBooks(title, author, date, pages, torecommend);
+                    }
+                }
+            }
+
+            return {
+                init() {
+                    handlers.onProgressSession()
+
+                    htmlElements.tableContainer.innerHTML = methods.generateTable()
+                    htmlElements.resp.classList.remove('hidden');
+                    htmlElements.logout.addEventListener('click', handlers.logOutSession)
+                    methods.printUserName()
+                    htmlElements.form.addEventListener('submit', handlers.onFormSubmit);
+                    methods.bindEvents();
+                },
+            }
+        })();
+        App.init()
+    })();
+
+</script>
+
+</html>

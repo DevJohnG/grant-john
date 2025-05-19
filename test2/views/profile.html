@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Profile</title>
+</head>
+
+<style>
+    body {
+
+        font-family: 'Montserrat', sans-serif;
+        padding: 25px;
+    }
+
+    /*--------------------------- HEADER ------------------------*/
+
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid rgb(197, 197, 197);
+    }
+
+    .booklogo {
+        width: 60px;
+        height: 60px;
+    }
+
+
+    .headerContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .headerButtonsContainers {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 125px;
+    }
+
+    .signUpButton {
+        color: black;
+        text-decoration: none;
+
+    }
+
+    .signUpButton:hover {
+        color: rgb(98, 0, 179);
+    }
+
+    /*--------------------------- CONTENT ------------------------*/
+
+    .contentSection {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .contentDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        width: 800px;
+        background-color: rgb(98, 0, 179);
+        border-radius: 15px;
+        padding: 100px;
+    }
+
+    .editDivContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .tr {
+        padding: 20px;
+    }
+
+    .inputTitle {
+        text-align: start;
+        font-weight: bold;
+        margin-right: 25px;
+
+    }
+
+    .inputLabel{
+        text-align: start;
+    }
+
+    .inputStyle {
+        width: 300px;
+        border: none;
+        border-radius: 25px;
+        padding: 10px;
+        margin: 15px;
+    }
+
+    .inputStyle:hover {
+        border: none;
+    }
+
+    .buttonStyle {
+        font-weight: bolder;
+        font-size: medium;
+        color: rgb(98, 0, 179);
+        background-color: white;
+        border: 3px solid white;
+        border-radius: 25px;
+        padding: 10px 25px;
+        cursor: pointer;
+        font-size: smaller;
+    }
+
+    .buttonStyle:hover {
+
+        background-color: rgb(245, 241, 241);
+    }
+</style>
+
+<body>
+
+    <header>
+        <div class="headerContainer"><img class="booklogo" src="\assets\logo.png" alt=""></div>
+        <div class="headerContainer">
+            <h1>Bookshelf</h1>
+        </div>
+        <div class="headerButtonsContainers">
+            <a class="signUpButton" href="\views\index.html">Log out</a>
+            <a class="signUpButton" href="\views\dashboard.html">Home</a>
+        </div>
+    </header>
+    <br>
+    <h2>- John Grant</h2>
+
+    <section class="contentSection">
+        <div class="contentDiv">
+            <h2>Profile</h2>
+            <table>
+                <form action="\views\dashboard.html" method="get">
+                    <tr>
+                        <td>
+                            <p class="inputTitle">Username:</p>
+                        </td>
+
+                        <div class="editDivContainer">
+
+                            <td><label class="inputLabel" for="">johndev</label></td>
+                            <td><input type="text" class="inputStyle" maxlength="16" placeholder="edit username"
+                                    required autofocus></td>
+                            <td><input type="submit" class="buttonStyle" value="EDIT"></td>
+                    </tr>
+                </form>
+        </div>
+        <form action="\views\dashboard.html" method="get">
+            <tr>
+                <td>
+                    <p class="inputTitle">Full name:</p>
+                </td>
+
+                <div class="editDivContainer">
+
+                    <td><label class="inputLabel" for="">John Grant</label></td>
+                    <td><input type="text" class="inputStyle" maxlength="16" placeholder="edit full name" required
+                            autofocus></td>
+                    <td><input type="submit" class="buttonStyle" value="EDIT"></td>
+            </tr>
+        </form>
+        </div>
+        <br>
+        <br>
+
+        <form action="\views\dashboard.html" method="get">
+            <tr>
+                <td>
+                    <p class="inputTitle">Password:</p>
+                </td>
+
+                <div class="editDivContainer">
+
+                    <td><label class="inputLabel" for="">********</label></td>
+                    <td><input type="text" class="inputStyle" maxlength="16" placeholder="edit password" required
+                            autofocus></td>
+                    <td><input type="submit" class="buttonStyle" value="EDIT"></td>
+            </tr>
+        </form>
+        </div>
+        </table>
+        </div>
+    </section>
+
+</body>
+
+<script>
+</script>
+
+</html>

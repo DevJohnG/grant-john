@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Log in</title>
+</head>
+
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        padding: 25px;
+    }
+
+    /*--------------------------- HEADER ------------------------*/
+
+    header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid rgb(197, 197, 197);
+    }
+
+    .booklogo {
+        width: 60px;
+        height: 60px;
+    }
+
+
+    .headerContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        text-align: center;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+
+    .signUpButton {
+        color: black;
+        text-decoration: none;
+
+    }
+
+    .signUpButton:hover {
+        color: rgb(98, 0, 179);
+        font-weight: 500;
+    }
+
+    /*--------------------------- CONTENT ------------------------*/
+
+    .contentSection {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .contentDiv {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        width: 500px;
+        background-color: rgb(98, 0, 179);
+        border-radius: 15px;
+        padding: 100px;
+    }
+
+    .inputTitle {
+        text-align: start;
+
+    }
+
+    .inputStyle {
+        margin: 0px;
+        width: 300px;
+        height: 25px;
+        border: none;
+        border-radius: 25px;
+        padding: 10px;
+    }
+
+    .inputStyle:hover {
+        border: none;
+    }
+
+    .buttonStyle {
+        font-weight: bolder;
+        font-size: medium;
+        color: rgb(98, 0, 179);
+        background-color: white;
+        outline: none;
+        border: 3px solid white;
+        border-radius: 25px;
+        padding: 25px 50px;
+        cursor: pointer;
+    }
+
+    .buttonStyle:hover {
+        background-color: rgb(245, 241, 241);
+    }
+
+    .buttonStyle:focus {
+        border: none;
+        outline: none;
+    }
+</style>
+
+<body>
+
+    <header>
+        <div class="headerContainer"><img class="booklogo" src="\assets\logo.png" alt=""></div>
+        <div class="headerContainer">
+            <h1>Bookshelf</h1>
+        </div>
+        <div class="headerContainer"><a class="signUpButton" href="\views\signup.html">Sign Up</a></div>
+    </header>
+    <br>
+    <section class="contentSection">
+        <div class="contentDiv">
+            <form action="">
+                <h2>Log In</h2>
+                <br>
+                <p class="inputTitle">Username:</p>
+                <input type="text" id="username" placeholder="username" class="inputStyle" maxlength="16" required autofocus>
+                <br>
+                <br>
+                <p class="inputTitle">Password:</p>
+                <input type="password" id="password" placeholder="..." class="inputStyle" maxlength="12" required>
+                <br>
+                <br>
+                <br>
+                <br>
+                <input type="submit" value="CONTINUE" class="buttonStyle">
+            </form>
+        </div>
+    </section>
+
+</body>
+
+<script>
+
+    (() => {
+
+        const App = (() => {
+
+            const htmlElements = {
+                form: document.querySelector('form'),
+            }
+
+            const handlers = {
+                logInUser(e) {
+                    e.preventDefault();
+                    const username = document.querySelector('#username').value
+                    const password = document.querySelector('#password').value
+                    const Users = JSON.parse(localStorage.getItem('users')) || []
+                    const validUser = Users.find(user => user.username === username && user.password === password)
+
+                    if (!validUser) {
+                        return alert('Username or password incorrect!')
+                    }
+
+                    alert(`Welcome ${validUser.fullname}!`)
+
+                    localStorage.setItem('login_success' , JSON.stringify(validUser))
+
+                    window.location.href = 'dashboard.html'
+                }
+            }
+
+            return {
+                init() {
+                    htmlElements.form.addEventListener('submit', handlers.logInUser)
+                },
+            }
+        })();
+App.init()
+    }
+    )();
+
+</script>
+
+</html>
