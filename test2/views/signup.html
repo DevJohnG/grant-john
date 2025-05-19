@@ -169,7 +169,7 @@
 
                         hash = (hash << 5) - hash + chr;
 
-                        hash |= 0; // Convierte a 32 bits
+                        hash |= 0;
 
                     }
 
@@ -180,11 +180,19 @@
             }
 
             const handlers = {
+
+                onProgressSession() {
+                    const user = JSON.parse(localStorage.getItem('login_success')) || false
+                    if (user) {
+                        window.location.href = 'dashboard.html'
+                    }
+                },
+
                 signUpUser(e) {
                     e.preventDefault();
                     const username = htmlElements.form.username.value;
                     const fullname = htmlElements.form.fullname.value;
-                    const password = htmlElements.form.password.value;
+                    const password = methods.hashCode(htmlElements.form.password.value);
 
                     const Users = JSON.parse(localStorage.getItem('users')) || []
                     const isUserRegistered = Users.find(user => user.username === username)
@@ -202,6 +210,7 @@
 
             return {
                 init() {
+                    handlers.onProgressSession()
                     htmlElements.form.addEventListener('submit', handlers.signUpUser);
                 },
             }

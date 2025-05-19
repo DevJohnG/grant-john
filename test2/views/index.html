@@ -132,7 +132,8 @@
                 <h2>Log In</h2>
                 <br>
                 <p class="inputTitle">Username:</p>
-                <input type="text" id="username" placeholder="username" class="inputStyle" maxlength="16" required autofocus>
+                <input type="text" id="username" placeholder="username" class="inputStyle" maxlength="16" required
+                    autofocus>
                 <br>
                 <br>
                 <p class="inputTitle">Password:</p>
@@ -158,11 +159,39 @@
                 form: document.querySelector('form'),
             }
 
+            const methods = {
+                hashCode(str) {
+
+                    let hash = 0;
+
+                    for (let i = 0; i < str.length; i++) {
+
+                        let chr = str.charCodeAt(i);
+
+                        hash = (hash << 5) - hash + chr;
+
+                        hash |= 0;
+
+                    }
+
+                    return hash;
+
+                }
+            }
+
             const handlers = {
+
+                onProgressSession() {
+                    const user = JSON.parse(localStorage.getItem('login_success')) || false
+                    if (user) {
+                        window.location.href = 'dashboard.html'
+                    }
+                },
+
                 logInUser(e) {
                     e.preventDefault();
                     const username = document.querySelector('#username').value
-                    const password = document.querySelector('#password').value
+                    const password = methods.hashCode(document.querySelector('#password').value)
                     const Users = JSON.parse(localStorage.getItem('users')) || []
                     const validUser = Users.find(user => user.username === username && user.password === password)
 
@@ -172,7 +201,7 @@
 
                     alert(`Welcome ${validUser.fullname}!`)
 
-                    localStorage.setItem('login_success' , JSON.stringify(validUser))
+                    localStorage.setItem('login_success', JSON.stringify(validUser))
 
                     window.location.href = 'dashboard.html'
                 }
@@ -180,11 +209,12 @@
 
             return {
                 init() {
+                    handlers.onProgressSession()
                     htmlElements.form.addEventListener('submit', handlers.logInUser)
                 },
             }
         })();
-App.init()
+        App.init()
     }
     )();
 

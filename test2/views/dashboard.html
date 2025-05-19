@@ -67,7 +67,7 @@
 
     /*--------------------------- CONTENT ------------------------*/
 
-    .addBook {
+    .addBookSection {
         color: white;
         padding: 5px;
         display: flex;
@@ -76,6 +76,18 @@
         align-items: center;
         border-radius: 15px;
         background-color: rgb(98, 0, 179);
+    }
+
+    .userNameTitle {
+        color: rgb(98, 0, 179);
+    }
+
+    .addBooks {
+        background-color: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
     }
 
     .card {
@@ -203,7 +215,7 @@
     <br>
     <section class="contentSection">
 
-        <h2 id="userNameTitle"></h2>
+        <h2 id="userNameTitle" class="userNameTitle"></h2>
         <section id="resp" class="card hidden">
             <h3>Readed books:</h3>
             <br>
@@ -213,30 +225,41 @@
         <div class="contentDiv"></div>
 
         <h4>Add book:</h4>
-        <div class="addBook">
-            <form action="">
-                <label class="inputTitle">Title:</label>
-                <input type="text" id="title" class="inputStyle" placeholder="title" maxlength="50" required autofocus>
-                <label class="inputTitle">Author:</label>
-                <input type="text" id="author" class="inputStyle" placeholder="author" maxlength="25" required>
-                <label class="inputTitle">Date of read:</label>
-                <input type="date" id="date" class="inputStyle" required>
-                <label class="inputTitle">Number of pages:</label>
-                <input type="number" id="pages" class="inputStyle" maxlength="4" placeholder="000" required min="2"
-                    max="9999">
-                <label class="inputTitle">To recommend:</label>
-                <select id="torecommend" class="selectStyle" required>
-                    <option value="Yes" selected>Yes</option>
-                    <option value="No">No</option>
-                </select>
-                <div class="buttonDiv">
-                    <input type="submit" value="ADD" class="buttonStyle">
-            </form>
-            <br>
-        </div>
-        </div>
+        <section class="addBookSection">
+            <div class="addBook">
+                <form action="">
+                    <label class="inputTitle">Title:</label>
+                    <input type="text" id="title" class="inputStyle" placeholder="title" maxlength="50" required
+                        autofocus>
+                    <label class="inputTitle">Author:</label>
+                    <input type="text" id="author" class="inputStyle" placeholder="author" maxlength="25" required>
+                    <label class="inputTitle">Date of read:</label>
+                    <input type="date" id="date" class="inputStyle" required>
+                    <label class="inputTitle">Number of pages:</label>
+                    <input type="number" id="pages" class="inputStyle" maxlength="4" placeholder="000" required min="2"
+                        max="9999">
+                    <label class="inputTitle">To recommend:</label>
+                    <select id="torecommend" class="selectStyle" required>
+                        <option value="Yes" selected>Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                    <div class="buttonDiv">
+                        <input type="submit" value="ADD" class="buttonStyle">
+                </form>
+                <br>
+            </div>
+            </div>
+        </section>
         <br>
         </div>
+    </section>
+
+    <section style="margin-top: 50px; text-align: center;">
+        <h2>Book Stats</h2>
+        <p id="totalBooksRead">Total books read: </p>
+        <p id="averagePages">Average pages per book: </p>
+
+        <canvas id="recommendationChart" width="400" height="300" style="border: 1px solid #ccc;"></canvas>
     </section>
 
 </body>
@@ -260,7 +283,7 @@
 
                     const User = JSON.parse(localStorage.getItem('login_success')) || []
                     const name = User.fullname
-                    htmlElements.userTitle.innerHTML = `- ${name}`
+                    htmlElements.userTitle.innerHTML = `- Welcome ${name}!`
                 },
 
                 generateRow(book) {
@@ -283,20 +306,9 @@
                     let table = '';
                     actualUserBooks.forEach(book => {
                         table += methods.generateRow(book)
-                      /*  table += `
-          <tr>
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-            <td>${book.readdate}</td>
-            <td>${book.pages}</td>
-            <td>${book.torecommend}</td>
-            <td><button class="deleteButton" data-title="${book.title}">Delete</button></td>
-          </tr>`;*/
+
                     });
 
-                    // for (let i = 1; i <= 10; i++) {
-                    //     table += methods.generateRow(title, author, date, pages, torecommend, i);
-                    // }
                     return `
               <table>
                 <thead>
@@ -356,6 +368,55 @@
                     window.location.href = 'dashboard.html'
                 },
 
+                generateChart() {
+                    const canvas = document.getElementById('recommendationChart');
+                    const ctx = canvas.getContext('2d');
+
+                    const user = JSON.parse(localStorage.getItem('login_success')) || false
+
+                    const username = user.username;
+                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+                    console.log(userBooks)
+                    const totalBooks = userBooks.length;
+                    const totalPages = userBooks.reduce((sum, book) => sum + (parseInt(book.pages) || 0), 0);
+                    const avgPages = totalBooks ? Math.round(totalPages / totalBooks) : 0;
+
+                    const recommendedCount = userBooks.filter(book => book.torecommend === 'Yes').length;
+                    const notRecommendedCount = userBooks.filter(book => book.torecommend === 'No').length;
+
+                    // Show stats
+                    document.getElementById('totalBooksRead').textContent = `Total books read: ${totalBooks}`;
+                    document.getElementById('averagePages').textContent = `Average pages per book: ${avgPages}`;
+
+                    // --- DRAWING ---
+                    const barWidth = 100;
+                    const maxBarHeight = 200;
+
+                    const maxValue = Math.max(recommendedCount, notRecommendedCount, 1);
+                    const scaleY = maxBarHeight / maxValue;
+
+                    const drawBar = (x, height, color, label, value) => {
+                        const y = canvas.height - height - 30;
+
+                        // bar
+                        ctx.fillStyle = color;
+                        ctx.fillRect(x, y, barWidth, height);
+
+                        // label
+                        ctx.fillStyle = '#000';
+                        ctx.font = '16px Montserrat';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(label, x + barWidth / 2, canvas.height - 10);
+                        ctx.fillText(value, x + barWidth / 2, y - 5);
+                    };
+
+                    // Clear canvas
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    drawBar(70, recommendedCount * scaleY, '#4CAF50', 'Recommended', recommendedCount);
+                    drawBar(220, notRecommendedCount * scaleY, '#F44336', 'Not Recommended', notRecommendedCount);
+                }
+
 
 
             }
@@ -384,12 +445,6 @@
                     const pages = htmlElements.form.pages.value;
                     const torecommend = htmlElements.form.torecommend.value;
 
-                    /* const title = document.querySelector("#title").value;
-                     const author = document.querySelector("#author").value;
-                     const date = document.querySelector("#date").value;
-                     const pages = document.querySelector("#pages").value;
-                     const torecommend = document.querySelector("#torecommend").value;*/
-
                     console.log(title)
 
 
@@ -406,9 +461,10 @@
                     htmlElements.tableContainer.innerHTML = methods.generateTable()
                     htmlElements.resp.classList.remove('hidden');
                     htmlElements.logout.addEventListener('click', handlers.logOutSession)
+                    methods.generateChart()
                     methods.printUserName()
-                    htmlElements.form.addEventListener('submit', handlers.onFormSubmit);
-                    methods.bindEvents();
+                    htmlElements.form.addEventListener('submit', handlers.onFormSubmit)
+                    methods.bindEvents()
                 },
             }
         })();

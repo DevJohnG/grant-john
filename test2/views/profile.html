@@ -30,6 +30,11 @@
         height: 60px;
     }
 
+    .userNameTitle {
+        color: rgb(98, 0, 179);
+    }
+
+
 
     .headerContainer {
         display: flex;
@@ -52,7 +57,7 @@
     .signUpButton {
         color: black;
         text-decoration: none;
-
+        cursor: pointer;
     }
 
     .signUpButton:hover {
@@ -101,7 +106,7 @@
 
     }
 
-    .inputLabel{
+    .inputLabel {
         text-align: start;
     }
 
@@ -143,72 +148,156 @@
             <h1>Bookshelf</h1>
         </div>
         <div class="headerButtonsContainers">
-            <a class="signUpButton" href="\views\index.html">Log out</a>
+            <a class="signUpButton" id="logoutButton">Log out</a>
             <a class="signUpButton" href="\views\dashboard.html">Home</a>
         </div>
     </header>
     <br>
-    <h2>- John Grant</h2>
+    <h2 id="userNameTitle" class="userNameTitle"></h2>
 
     <section class="contentSection">
         <div class="contentDiv">
             <h2>Profile</h2>
-            <table>
-                <form action="\views\dashboard.html" method="get">
+            <form id="updateFullNameForm" action="">
+                <table>
                     <tr>
                         <td>
-                            <p class="inputTitle">Username:</p>
+                            <p class="inputTitle">Full name:</p>
                         </td>
-
-                        <div class="editDivContainer">
-
-                            <td><label class="inputLabel" for="">johndev</label></td>
-                            <td><input type="text" class="inputStyle" maxlength="16" placeholder="edit username"
-                                    required autofocus></td>
-                            <td><input type="submit" class="buttonStyle" value="EDIT"></td>
+                        <td><label id="fullname" class="inputLabel"></label></td>
+                        <td><input id="editedFullname" type="text" class="inputStyle" maxlength="16"
+                                placeholder="edit full name" required></td>
+                        <td><input type="submit" class="buttonStyle" value="EDIT"></td>
                     </tr>
-                </form>
-        </div>
-        <form action="\views\dashboard.html" method="get">
-            <tr>
-                <td>
-                    <p class="inputTitle">Full name:</p>
-                </td>
+                </table>
+            </form>
 
-                <div class="editDivContainer">
+            <br><br>
 
-                    <td><label class="inputLabel" for="">John Grant</label></td>
-                    <td><input type="text" class="inputStyle" maxlength="16" placeholder="edit full name" required
-                            autofocus></td>
-                    <td><input type="submit" class="buttonStyle" value="EDIT"></td>
-            </tr>
-        </form>
-        </div>
-        <br>
-        <br>
-
-        <form action="\views\dashboard.html" method="get">
-            <tr>
-                <td>
-                    <p class="inputTitle">Password:</p>
-                </td>
-
-                <div class="editDivContainer">
-
-                    <td><label class="inputLabel" for="">********</label></td>
-                    <td><input type="text" class="inputStyle" maxlength="16" placeholder="edit password" required
-                            autofocus></td>
-                    <td><input type="submit" class="buttonStyle" value="EDIT"></td>
-            </tr>
-        </form>
-        </div>
-        </table>
+            <form id="updatePasswordForm" action="">
+                <table>
+                    <tr>
+                        <td>
+                            <p class="inputTitle">Password:</p>
+                        </td>
+                        <td><label class="inputLabel">********</label></td>
+                        <td><input id="editedPassword" type="text" class="inputStyle" maxlength="16"
+                                placeholder="edit password" required></td>
+                        <td><input type="submit" class="buttonStyle" value="EDIT"></td>
+                    </tr>
+                </table>
+            </form>
         </div>
     </section>
+
 
 </body>
 
 <script>
+    (() => {
+        const App = (() => {
+
+            const htmlElements = {
+                logout: document.querySelector('#logoutButton'),
+                userTitle: document.querySelector('#userNameTitle'),
+                fullname: document.querySelector('#fullname'),
+                formFullName: document.querySelector('#updateFullNameForm'),
+                formPassword: document.querySelector('#updatePasswordForm'),
+            }
+
+            const methods = {
+
+                printUserName(field) {
+
+                    const User = JSON.parse(localStorage.getItem('login_success')) || []
+                    const name = User.fullname
+                    field.innerHTML = `${name}`
+                },
+
+                updateUser({ field, newValue }) {
+                    const currentUser = JSON.parse(localStorage.getItem('login_success'));
+
+                    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+                    const updatedUsers = users.map(u => {
+                        if (u.username === currentUser.username) {
+                            u[field] = newValue;
+                        }
+                        return u;
+                    });
+
+                    localStorage.setItem('users', JSON.stringify(updatedUsers));
+
+                    alert('Profile updated. You will be logged out.');
+                    localStorage.removeItem('login_success');
+                    window.location.href = '/views/index.html';
+                },
+
+                hashCode(str) {
+
+                    let hash = 0;
+
+                    for (let i = 0; i < str.length; i++) {
+
+                        let chr = str.charCodeAt(i);
+                        hash = (hash << 5) - hash + chr;
+                        hash |= 0;
+                    }
+                    return hash;
+
+                },
+            }
+
+            const handlers = {
+
+
+                onProgressSession() {
+                    const user = JSON.parse(localStorage.getItem('login_success')) || false
+                    if (!user) {
+                        window.location.href = 'index.html'
+                    }
+                },
+
+                logOutSession() {
+                    alert('Good bye!')
+                    localStorage.removeItem('login_success')
+                    window.location.href = 'index.html'
+                },
+
+                onFullNameSubmit(e) {
+                    e.preventDefault();
+                    const newFullname = htmlElements.formFullName.editedFullname.value.trim();
+                    if (newFullname) {
+                        methods.updateUser({ field: 'fullname', newValue: newFullname });
+                    }
+                },
+
+                onPasswordSubmit(e) {
+                    e.preventDefault();
+                    const newPassword = methods.hashCode(htmlElements.formPassword.editedPassword.value.trim());
+                    if (newPassword) {
+                        methods.updateUser({ field: 'password', newValue: newPassword });
+                    }
+                },
+
+            }
+
+            return {
+                init() {
+                    handlers.onProgressSession()
+
+                    htmlElements.logout.addEventListener('click', handlers.logOutSession)
+                    methods.printUserName(htmlElements.userTitle)
+                    methods.printUserName(htmlElements.fullname)
+                    htmlElements.formFullName.addEventListener('submit', handlers.onFullNameSubmit);
+                    htmlElements.formPassword.addEventListener('submit', handlers.onPasswordSubmit);
+
+
+                },
+            }
+        })();
+        App.init()
+    })();
 </script>
 
 </html>
