@@ -90,6 +90,16 @@
         transition: box-shadow 0.3s ease;
     }
 
+    .chartContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 10px;
+        box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+    }
+
     .card {
         background-color: white;
         border-radius: 16px;
@@ -100,6 +110,11 @@
 
     .card:hover {
         box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .statsDiv {
+        padding: 100px;
+
     }
 
     table {
@@ -253,13 +268,15 @@
         <br>
         </div>
     </section>
-
-    <section style="margin-top: 50px; text-align: center;">
-        <h2>Book Stats</h2>
-        <p id="totalBooksRead">Total books read: </p>
-        <p id="averagePages">Average pages per book: </p>
-
+    <h4>Book Stats:</h4>
+    <section class="chartContainer">
+        <div class="statsDiv">
+            <p id="totalBooksRead">Total books read: </p>
+            <p id="averagePages">Average pages per book: </p>
+        </div>
+        <div class="statsDiv"></div>
         <canvas id="recommendationChart" width="400" height="300" style="border: 1px solid #ccc;"></canvas>
+        </div>
     </section>
 
 </body>
@@ -274,7 +291,10 @@
                 userTitle: document.querySelector('#userNameTitle'),
                 form: document.querySelector('form'),
                 tableContainer: document.querySelector('section#resp #tableContainer'),
-                resp: document.querySelector('section#resp')
+                resp: document.querySelector('section#resp'),
+                avgPagesoutput: document.getElementById('averagePages'),
+                totalBooksoutput: document.getElementById('totalBooksRead'),
+                recommendationChart: document.getElementById('recommendationChart'),
             }
 
             const methods = {
@@ -340,6 +360,9 @@
                     localStorage.setItem(`${username}Books`, JSON.stringify(userBooks))
 
                     e.target.closest('tr').remove();
+                    methods.getAverage()
+                    methods.getTotalBooks()
+                    methods.generateChart()
                     alert("Book deleted!")
                 },
 
@@ -368,41 +391,48 @@
                     window.location.href = 'dashboard.html'
                 },
 
+                getAverage() {
+                    const outPut = htmlElements.avgPagesoutput;
+                    const username = JSON.parse(localStorage.getItem('login_success'))?.username;
+                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+
+                    const avgPages = userBooks.length
+                        ? Math.round(userBooks.reduce((sum, book) => sum + (parseInt(book.pages) || 0), 0) / userBooks.length)
+                        : 0;
+
+                    return outPut.textContent = `Average pages per book: ${avgPages}`;
+
+                },
+
+                getTotalBooks() {
+                    const outPut = htmlElements.totalBooksoutput;
+                    const username = JSON.parse(localStorage.getItem('login_success'))?.username;
+                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+
+                    return outPut.textContent = `Total books read: ${userBooks.length}`;
+                },
+
                 generateChart() {
                     const canvas = document.getElementById('recommendationChart');
                     const ctx = canvas.getContext('2d');
 
-                    const user = JSON.parse(localStorage.getItem('login_success')) || false
-
-                    const username = user.username;
+                    const username = JSON.parse(localStorage.getItem('login_success'))?.username;
                     const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
-                    console.log(userBooks)
-                    const totalBooks = userBooks.length;
-                    const totalPages = userBooks.reduce((sum, book) => sum + (parseInt(book.pages) || 0), 0);
-                    const avgPages = totalBooks ? Math.round(totalPages / totalBooks) : 0;
 
                     const recommendedCount = userBooks.filter(book => book.torecommend === 'Yes').length;
                     const notRecommendedCount = userBooks.filter(book => book.torecommend === 'No').length;
 
-                    // Show stats
-                    document.getElementById('totalBooksRead').textContent = `Total books read: ${totalBooks}`;
-                    document.getElementById('averagePages').textContent = `Average pages per book: ${avgPages}`;
-
-                    // --- DRAWING ---
                     const barWidth = 100;
                     const maxBarHeight = 200;
-
                     const maxValue = Math.max(recommendedCount, notRecommendedCount, 1);
                     const scaleY = maxBarHeight / maxValue;
 
                     const drawBar = (x, height, color, label, value) => {
                         const y = canvas.height - height - 30;
 
-                        // bar
                         ctx.fillStyle = color;
                         ctx.fillRect(x, y, barWidth, height);
 
-                        // label
                         ctx.fillStyle = '#000';
                         ctx.font = '16px Montserrat';
                         ctx.textAlign = 'center';
@@ -410,7 +440,6 @@
                         ctx.fillText(value, x + barWidth / 2, y - 5);
                     };
 
-                    // Clear canvas
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                     drawBar(70, recommendedCount * scaleY, '#4CAF50', 'Recommended', recommendedCount);
@@ -457,12 +486,13 @@
             return {
                 init() {
                     handlers.onProgressSession()
-
                     htmlElements.tableContainer.innerHTML = methods.generateTable()
                     htmlElements.resp.classList.remove('hidden');
                     htmlElements.logout.addEventListener('click', handlers.logOutSession)
                     methods.generateChart()
                     methods.printUserName()
+                    methods.getAverage()
+                    methods.getTotalBooks()
                     htmlElements.form.addEventListener('submit', handlers.onFormSubmit)
                     methods.bindEvents()
                 },

@@ -74,7 +74,7 @@
         width: 500px;
         background-color: rgb(98, 0, 179);
         border-radius: 15px;
-        padding: 100px;
+        padding: 50px;
     }
 
     .inputTitle {
@@ -119,7 +119,6 @@
         </div>
         <div class="headerContainer"><a class="signUpButton" href="\views\index.html">Log in</a></div>
     </header>
-    <br>
     <section class="contentSection">
         <div class="contentDiv">
             <form action="">
@@ -179,6 +178,20 @@
 
             }
 
+      /*      function deleteUser() {
+
+                let username = 'gracemarie'
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                users = users.filter(user => user.username !== username);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                localStorage.removeItem('login_success');
+                localStorage.removeItem(`${username}Books`);
+
+                alert(`User "${username}" deleted successfully.`);
+
+            }*/
+
             const handlers = {
 
                 onProgressSession() {
@@ -210,6 +223,7 @@
 
             return {
                 init() {
+                 //   deleteUser()
                     handlers.onProgressSession()
                     htmlElements.form.addEventListener('submit', handlers.signUpUser);
                 },
