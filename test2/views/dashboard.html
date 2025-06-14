@@ -68,14 +68,14 @@
     /*--------------------------- CONTENT ------------------------*/
 
     .addBookSection {
-        color: white;
-        padding: 5px;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        color: white;
+        padding: 5px;
         border-radius: 15px;
-        background-color: rgb(98, 0, 179);
+        background-color: white;
     }
 
     .userNameTitle {
@@ -83,10 +83,16 @@
     }
 
     .addBooks {
-        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(98, 0, 179);
+        color: white;
         border-radius: 16px;
+        width: 50%;
         padding: 30px;
-        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
         transition: box-shadow 0.3s ease;
     }
 
@@ -120,35 +126,81 @@
     table {
         width: 100%;
         border-collapse: collapse;
+        border-radius: 25px;
+        overflow: hidden;
+    }
+
+    thead {
+        background-color: rgb(98, 0, 179);
+        color: white;
     }
 
     th,
     td {
         padding: 14px;
-        border-bottom: 1px solid #e2e8f0;
-        text-align: left;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
     }
 
-    th {
-        background-color: rgb(98, 0, 179);
-        color: white;
-        font-weight: 600;
+    th:first-child {
+        border-top-left-radius: 15px;
     }
 
-    tr:hover {
+    th:last-child {
+        border-top-right-radius: 15px;
+    }
+
+    tr:last-child td:first-child {
+        border-bottom-left-radius: 15px;
+    }
+
+    tr:last-child td:last-child {
+        border-bottom-right-radius: 15px;
+    }
+
+    tbody:hover {
         background-color: #f9fafb;
+    }
+
+    .addBookButtomDiv {
+        display: flex;
+        justify-content: center;
+    }
+
+    .addBookContentDiv {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .addBookContentTitleContainer {
+        display: flex;
+        justify-content: end;
+        width: 150px;
+        padding: 10px;
+    }
+
+    .addBookContentContainer {
+        display: flex;
+        justify-content: start;
+        padding: 10px;
     }
 
     .deleteButton {
         font-weight: bolder;
         width: 100%;
-        height: 50px;
-        font-size: medium;
+        height: 35px;
+        font-size: small;
         color: rgb(98, 0, 179);
         background-color: white;
         border: 3px solid rgb(211, 211, 211);
         border-radius: 25px;
         cursor: pointer;
+    }
+
+    .formDialog {
+        width: 85%;
+        border: none;
+        position: relative;
     }
 
     .deleteButton:hover {
@@ -162,17 +214,15 @@
 
     .inputTitle {
         font-weight: bold;
-        text-align: start;
-        font-size: small;
+        font-size: medium;
     }
 
     .inputStyle {
-        width: 100px;
+        width: 300px;
         height: 10px;
         border: none;
         border-radius: 25px;
         padding: 10px;
-        margin: 25px;
     }
 
     .inputStyle:hover {
@@ -180,12 +230,11 @@
     }
 
     .selectStyle {
-        width: 100px;
+        width: 320px;
         height: 35px;
         border: none;
-        border-radius: 25px;
+        border-radius: 15px;
         padding: 10px;
-        margin: 25px;
         color: black;
     }
 
@@ -198,8 +247,8 @@
 
     .buttonStyle {
         font-weight: bolder;
-        width: 100%;
-        height: 50px;
+        width: 250px;
+        height: 70px;
         font-size: medium;
         color: rgb(98, 0, 179);
         background-color: white;
@@ -210,8 +259,46 @@
 
     .buttonStyle:hover {
 
-        color: rgb(98, 0, 179);
-        border: 3px solid rgb(98, 0, 179);
+        color: white;
+        border: 3px solid white;
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .chartTitleDiv {
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+    }
+
+    .barsContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        border-color: black;
+        border: 2px solid rgba(0, 0, 0, 0.8);
+    }
+
+    .recommendedBar {
+        height: 100%;
+        background-color: #00fff2;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        transition: height 0.3s;
+    }
+
+    .notRecommendedBar {
+        height: 100%;
+        background-color: #ff7b00;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        transition: height 0.3s;
     }
 </style>
 
@@ -233,38 +320,78 @@
         <h2 id="userNameTitle" class="userNameTitle"></h2>
         <section id="resp" class="card hidden">
             <h3>Readed books:</h3>
-            <br>
             <div id="tableContainer"></div>
         </section>
         <br>
         <div class="contentDiv"></div>
+        <br>
 
-        <h4>Add book:</h4>
-        <section class="addBookSection">
-            <div class="addBook">
-                <form action="">
-                    <label class="inputTitle">Title:</label>
-                    <input type="text" id="title" class="inputStyle" placeholder="title" maxlength="50" required
-                        autofocus>
-                    <label class="inputTitle">Author:</label>
-                    <input type="text" id="author" class="inputStyle" placeholder="author" maxlength="25" required>
-                    <label class="inputTitle">Date of read:</label>
-                    <input type="date" id="date" class="inputStyle" required>
-                    <label class="inputTitle">Number of pages:</label>
-                    <input type="number" id="pages" class="inputStyle" maxlength="4" placeholder="000" required min="2"
-                        max="9999">
-                    <label class="inputTitle">To recommend:</label>
-                    <select id="torecommend" class="selectStyle" required>
-                        <option value="Yes" selected>Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <div class="buttonDiv">
-                        <input type="submit" value="ADD" class="buttonStyle">
-                </form>
-                <br>
-            </div>
-            </div>
-        </section>
+        <div class="addBookButtomDiv">
+            <button class="buttonStyle" id="buttonShow">ADD BOOK</button>
+            <button class="buttonStyle" id="buttonHide">CANCEL</button>
+        </div>
+
+        <dialog id="formDialog" class="formDialog">
+            <section class="addBookSection">
+                <div class="addBooks">
+                    <h4>Add book:</h4>
+                    <form action="">
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Title:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="text" id="title" class="inputStyle" placeholder="title" maxlength="50"
+                                    required autofocus>
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Author:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="text" id="author" class="inputStyle" placeholder="author" maxlength="25"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Date of read:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="date" id="date" class="inputStyle" required>
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Number of pages:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="number" id="pages" class="inputStyle" maxlength="4" placeholder="000"
+                                    required min="2" max="9999">
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">To recommend:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <select id="torecommend" class="selectStyle" required>
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="buttonDiv">
+                            <input type="submit" value="ADD" class="buttonStyle">
+                            <br>
+                    </form>
+                    <br>
+                </div>
+                </div>
+            </section>
+        </dialog>
         <br>
         </div>
     </section>
@@ -275,7 +402,16 @@
             <p id="averagePages">Average pages per book: </p>
         </div>
         <div class="statsDiv"></div>
-        <canvas id="recommendationChart" width="400" height="300" style="border: 1px solid #ccc;"></canvas>
+        <div>
+            <div class="chartTitleDiv">
+                <p>Recommend vs Not Recommend</p>
+            </div>
+            <div id="chartContainer" class="barsContainer">
+                <div id="recommendedBar" class="recommendedBar">
+                </div>
+                <div id="notRecommendedBar" class="notRecommendedBar">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -295,6 +431,9 @@
                 avgPagesoutput: document.getElementById('averagePages'),
                 totalBooksoutput: document.getElementById('totalBooksRead'),
                 recommendationChart: document.getElementById('recommendationChart'),
+                buttonShow: document.querySelector('#buttonShow'),
+                buttonHide: document.querySelector('#buttonHide'),
+                formDialog: document.querySelector("#formDialog"),
             }
 
             const methods = {
@@ -304,6 +443,14 @@
                     const User = JSON.parse(localStorage.getItem('login_success')) || []
                     const name = User.fullname
                     htmlElements.userTitle.innerHTML = `- Welcome ${name}!`
+                },
+
+                openDialog() {
+                    formDialog.show()
+                },
+
+                hideDialog() {
+                    formDialog.close()
                 },
 
                 generateRow(book) {
@@ -329,7 +476,10 @@
 
                     });
 
-                    return `
+                    if (table === '') {
+                        return `<p>No books registered yet</p>`
+                    } else {
+                        return `
               <table>
                 <thead>
                   <tr>
@@ -338,13 +488,14 @@
                     <th>Date of read</th>
                     <th>Number of pages</th>
                     <th>To Recommend</th>
-                    <th>-<th>
+                    <th>-</th>
                   </tr>
                 </thead>
                 <tbody>
                   ${table}
                 </tbody>
               </table>`;
+                    }
                 },
 
                 removeRow(e) {
@@ -392,61 +543,53 @@
                 },
 
                 getAverage() {
-                    const outPut = htmlElements.avgPagesoutput;
-                    const username = JSON.parse(localStorage.getItem('login_success'))?.username;
-                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+                    const outPut = htmlElements.avgPagesoutput
+                    const username = JSON.parse(localStorage.getItem('login_success'))?.username
+                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || []
 
                     const avgPages = userBooks.length
                         ? Math.round(userBooks.reduce((sum, book) => sum + (parseInt(book.pages) || 0), 0) / userBooks.length)
-                        : 0;
+                        : 0
 
-                    return outPut.textContent = `Average pages per book: ${avgPages}`;
+                    return outPut.textContent = `Average pages per book: ${avgPages}`
 
                 },
 
                 getTotalBooks() {
-                    const outPut = htmlElements.totalBooksoutput;
-                    const username = JSON.parse(localStorage.getItem('login_success'))?.username;
-                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+                    const outPut = htmlElements.totalBooksoutput
+                    const username = JSON.parse(localStorage.getItem('login_success'))?.username
+                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || []
 
-                    return outPut.textContent = `Total books read: ${userBooks.length}`;
+                    return outPut.textContent = `Total books read: ${userBooks.length}`
                 },
 
-                generateChart() {
-                    const canvas = document.getElementById('recommendationChart');
-                    const ctx = canvas.getContext('2d');
+                displayRecommendedBar() {
+                    const { recommendedPercent } = methods.getRecommendationStats()
+                    const bar = document.getElementById('recommendedBar')
+                    bar.style.width = `${recommendedPercent * 4}px`
+                    bar.textContent = `${recommendedPercent}%`
+                },
 
-                    const username = JSON.parse(localStorage.getItem('login_success'))?.username;
-                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || [];
+                displayNotRecommendedBar() {
+                    const { notRecommendedPercent } = methods.getRecommendationStats()
+                    const bar = document.getElementById('notRecommendedBar')
+                    bar.style.width = `${notRecommendedPercent * 4}px`
+                    bar.textContent = `${notRecommendedPercent}%`
+                },
 
-                    const recommendedCount = userBooks.filter(book => book.torecommend === 'Yes').length;
-                    const notRecommendedCount = userBooks.filter(book => book.torecommend === 'No').length;
+                getRecommendationStats() {
+                    const username = JSON.parse(localStorage.getItem('login_success'))?.username
+                    const userBooks = JSON.parse(localStorage.getItem(`${username}Books`)) || []
 
-                    const barWidth = 100;
-                    const maxBarHeight = 200;
-                    const maxValue = Math.max(recommendedCount, notRecommendedCount, 1);
-                    const scaleY = maxBarHeight / maxValue;
+                    const recommendedCount = userBooks.filter(book => book.torecommend === 'Yes').length
+                    const notRecommendedCount = userBooks.filter(book => book.torecommend === 'No').length
 
-                    const drawBar = (x, height, color, label, value) => {
-                        const y = canvas.height - height - 30;
+                    const total = recommendedCount + notRecommendedCount || 1
+                    const recommendedPercent = Math.round((recommendedCount / total) * 100)
+                    const notRecommendedPercent = Math.round((notRecommendedCount / total) * 100)
 
-                        ctx.fillStyle = color;
-                        ctx.fillRect(x, y, barWidth, height);
-
-                        ctx.fillStyle = '#000';
-                        ctx.font = '16px Montserrat';
-                        ctx.textAlign = 'center';
-                        ctx.fillText(label, x + barWidth / 2, canvas.height - 10);
-                        ctx.fillText(value, x + barWidth / 2, y - 5);
-                    };
-
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                    drawBar(70, recommendedCount * scaleY, '#4CAF50', 'Recommended', recommendedCount);
-                    drawBar(220, notRecommendedCount * scaleY, '#F44336', 'Not Recommended', notRecommendedCount);
-                }
-
-
+                    return { recommendedPercent, notRecommendedPercent }
+                },
 
             }
 
@@ -489,7 +632,10 @@
                     htmlElements.tableContainer.innerHTML = methods.generateTable()
                     htmlElements.resp.classList.remove('hidden');
                     htmlElements.logout.addEventListener('click', handlers.logOutSession)
-                    methods.generateChart()
+                    htmlElements.buttonShow.addEventListener('click', methods.openDialog)
+                    htmlElements.buttonHide.addEventListener('click', methods.hideDialog)
+                    methods.displayNotRecommendedBar()
+                    methods.displayRecommendedBar()
                     methods.printUserName()
                     methods.getAverage()
                     methods.getTotalBooks()

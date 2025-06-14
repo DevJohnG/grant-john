@@ -83,20 +83,35 @@
         align-items: center;
         text-align: center;
         color: white;
-        width: 800px;
+        width: 700px;
         background-color: rgb(98, 0, 179);
         border-radius: 15px;
-        padding: 100px;
+        padding: 50px;
+    }
+
+    .userDataContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .userDataTitleDiv {
+        display: flex;
+        justify-content: end;
+        width: 125px;
+    }
+
+    .userDataDiv {
+        display: flex;
+        justify-content: start;
+        width: 125px;
     }
 
     .editDivContainer {
         display: flex;
         flex-direction: row;
         align-items: center;
-    }
-
-    .tr {
-        padding: 20px;
     }
 
     .inputTitle {
@@ -152,41 +167,41 @@
             <a class="signUpButton" href="\views\dashboard.html">Home</a>
         </div>
     </header>
-    <br>
     <h2 id="userNameTitle" class="userNameTitle"></h2>
 
     <section class="contentSection">
         <div class="contentDiv">
             <h2>Profile</h2>
             <form id="updateFullNameForm" action="">
-                <table>
-                    <tr>
-                        <td>
-                            <p class="inputTitle">Full name:</p>
-                        </td>
-                        <td><label id="fullname" class="inputLabel"></label></td>
-                        <td><input id="editedFullname" type="text" class="inputStyle" maxlength="16"
-                                placeholder="edit full name" required></td>
-                        <td><input type="submit" class="buttonStyle" value="EDIT"></td>
-                    </tr>
-                </table>
-            </form>
+                <div class="userDataContainer">
+                    <div class="userDataTitleDiv">
+                        <p class="inputTitle">Full name:</p>
+                    </div>
+                    <div class="userDataDiv">
+                        <label id="fullname" class="inputLabel"></label>
+                    </div>
 
-            <br><br>
+                    <input id="editedFullname" type="text" class="inputStyle" maxlength="16"
+                        placeholder="edit full name" required>
+                    <input type="submit" class="buttonStyle" value="EDIT">
+                </div>
+
+            </form>
 
             <form id="updatePasswordForm" action="">
-                <table>
-                    <tr>
-                        <td>
-                            <p class="inputTitle">Password:</p>
-                        </td>
-                        <td><label class="inputLabel">********</label></td>
-                        <td><input id="editedPassword" type="text" class="inputStyle" maxlength="16"
-                                placeholder="edit password" required></td>
-                        <td><input type="submit" class="buttonStyle" value="EDIT"></td>
-                    </tr>
-                </table>
+                <div class="userDataContainer">
+                    <div class="userDataTitleDiv">
+                        <p class="inputTitle">Password:</p>
+                    </div>
+                    <div class="userDataDiv">
+                        <label class="inputLabel">********</label>
+                    </div>
+                    <input id="editedPassword" type="text" class="inputStyle" maxlength="16" placeholder="edit password"
+                        required>
+                    <input type="submit" class="buttonStyle" value="EDIT">
+                </div>
             </form>
+
         </div>
     </section>
 
