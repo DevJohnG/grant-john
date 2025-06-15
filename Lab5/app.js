@@ -1,4 +1,12 @@
-const id = "john"
+function getFibonacci(n) {
+  if (n === 1) return [0];
+  const fibonacci = [0, 1];
+  for (let i = 2; i < n; i++) {
+    fibonacci.push(fibonacci[i - 1] + fibonacci[i - 2]);
+  }
+  return fibonacci;
+}
+//const id = "john"
 
 // Require the framework and instantiate it
 
@@ -14,7 +22,7 @@ const fastify = Fastify({
 //  reply.send({ hello: 'world' })
 //})
 
-fastify.get('/', (request, reply) => {
+/*fastify.get('/', (request, reply) => {
   return { hello: 'world' }
 })
 
@@ -25,7 +33,17 @@ fastify.get('/prueba2', (request, reply) => {
 
 fastify.get('/prueba/:id', (request, reply) => {
   return { hello: 'prueba', id:request.params.id }
-})
+}) */
+
+fastify.get('/lab5/:n', (request, reply) => {
+  const n = parseInt(request.params.n, 10);
+  if (isNaN(n) || n <= 0) {
+    return reply.status(400).send({ error: 'Number not valid' });
+  }
+  const serie = getFibonacci(n);
+  return { fibonacci: serie };
+});
+
 
 
 // Run the server!
