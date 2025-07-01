@@ -10,10 +10,10 @@ let products = [
   { id: '1', nombre: 'Birrete de flores', precio: 45, categoria: 'Birrete' },
   { id: '2', nombre: 'Llavero Letra M', precio: 5, categoria: 'Llavero' },
   { id: '3', nombre: 'Birrete 3D', precio: 37, categoria: 'Birrete' },
-  {id: '4', nombre: 'Vaso térmico letra J', precio: 15, categoria: 'Vaso'},
-  {id: '5', nombre: 'Vaso Plastico Victor R', precio: 10, categoria: 'Vaso'},
-  {id: '6', nombre: 'Birrete Sencillo', precio: 30, categoria: 'Birrete'},
-  {id: '7', nombre: 'triple lazo de tres colores', precio: 12, categoria: 'Lazo'},
+  { id: '4', nombre: 'Vaso térmico letra J', precio: 15, categoria: 'Vaso'},
+  { id: '5', nombre: 'Vaso Plastico Victor R', precio: 10, categoria: 'Vaso'},
+  { id: '6', nombre: 'Birrete Sencillo', precio: 30, categoria: 'Birrete'},
+  { id: '7', nombre: 'triple lazo de tres colores', precio: 12, categoria: 'Lazo'},
 ];
 
 let nextProductId = products.length > 0 ? Math.max(...products.map(p => parseInt(p.id))) + 1 : 1;

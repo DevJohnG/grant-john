@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <main>
+        <section class="card">
+            <div class="card-content">
+                <h1>@madebygreechh</h1>
+                <h2>Emprendimiento de personalizados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Categoría</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody class="products-table">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div class="addBookButtomDiv">
+            <button class="buttonStyle" id="buttonShow">ADD BOOK</button>
+            <button class="buttonStyle" id="buttonHide">CANCEL</button>
+        </div>
+
+        <dialog id="formDialog" class="formDialog">
+            <section class="addBookSection">
+                <div class="addBooks">
+                    <h4>Add book:</h4>
+                    <form action="">
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Title:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="text" id="title" class="inputStyle" placeholder="title" maxlength="50"
+                                    required autofocus>
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Author:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="text" id="author" class="inputStyle" placeholder="author" maxlength="25"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Date of read:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="date" id="date" class="inputStyle" required>
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">Number of pages:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <input type="number" id="pages" class="inputStyle" maxlength="4" placeholder="000"
+                                    required min="2" max="9999">
+                            </div>
+                        </div>
+                        <div class="addBookContentDiv">
+                            <div class="addBookContentTitleContainer">
+                                <label class="inputTitle">To recommend:</label>
+                            </div>
+                            <div class="addBookContentContainer">
+                                <select id="torecommend" class="selectStyle" required>
+                                    <option value="Yes" selected>Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="buttonDiv">
+                            <input type="submit" value="ADD" class="buttonStyle">
+                            <br>
+                    </form>
+                    <br>
+                </div>
+                </div>
+            </section>
+        </dialog>
+    </main>
+</body>
+</html>
