@@ -28,6 +28,43 @@ body {
     min-height: 100vh;
 }
 
+.addProductButtomDiv {
+    display: flex;
+    justify-content: end;
+}
+
+.buttonStyle {
+    font-weight: bolder;
+    text-decoration: none;
+    width: 250px;
+    height: 70px;
+    font-size: medium;
+    color: var(--fucsia);
+    background-color: white;
+    border: 3px solid rgb(211, 211, 211);
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.buttonStyleMas {
+    font-weight: bolder;
+    text-decoration: none;
+    width: 100px;
+    height: 40px;
+    font-size: small;
+    color: var(--fucsia);
+    background-color: white;
+    border: 3px solid rgb(211, 211, 211);
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.buttonStyle:hover {
+    color: white;
+    border: 3px solid white;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .card {
     background-color: var(--white);
     padding: 32px 40px;
@@ -44,12 +81,14 @@ body {
     gap: 24px;
 }
 
-.card-content > table {
+.card-content>table {
     padding-top: 16px;
 }
 
-th {
-    text-align: left;
+th,
+tr,
+td {
+    text-align: center;
     color: var(--fucsia);
     font-weight: 600;
     border-bottom: 2px solid var(--fucsia);
@@ -58,11 +97,13 @@ th {
 
 .products-table {
     width: 100%;
+    font-weight: 500;
     border-collapse: collapse;
     background: none;
 }
 
-.products-table th, .products-table td {
+.products-table th,
+.products-table td {
     padding: 12px 8px;
     border-bottom: 1px solid var(--border);
 }
@@ -75,7 +116,9 @@ th {
     color: #222;
 }
 
-.card, .products-table th, .products-table td {
+.card,
+.products-table th,
+.products-table td {
     transition: background 0.2s, color 0.2s;
 }
 
@@ -84,17 +127,161 @@ th {
     border-color: var(--fucsia);
 }
 
-a, button {
+.deleteButton,
+.editButton {
+    font-weight: bolder;
+    text-decoration: none;
+    width: 80px;
+    height: 40px;
+    font-size: small;
+    color: red;
+    background-color: white;
+    border: 3px solid rgb(211, 211, 211);
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.deleteButton:hover {
+    color: var(--fucsia);
+    border: 3px solid var(--fucsia);
+}
+
+.editButton {
+    background-color: white;
+    border: 3px solid rgb(211, 211, 211);
+    color: green;
+}
+
+.editButton:hover {
+    color: var(--fucsia);
+    border: 3px solid var(--fucsia);
+}
+
+.buttonDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.products-table td:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.formDialog {
+    border: none;
+    padding: 2px;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
+
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.formDialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+
+.addProductContentDiv {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.addProductContentTitleContainer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 220px;
+    padding: 10px;
+}
+
+.inputTitle {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.inputStyle {
+    width: 300px;
+    height: 35px;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.inputStyle:focus {
+    outline: none;
+}
+
+.selectStyle {
+    width: 300px;
+    height: 35px;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    color: black;
+}
+
+
+.inputStyle:hover {
+    border: none;
+}
+
+.addProductContentContainer {
+    display: flex;
+    justify-content: start;
+    padding: 10px;
+}
+
+.addProductSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 0px;
+    border-radius: 15px;
+    background-color: white;
+}
+
+.addProducts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--fucsia);
+    color: white;
+    border-radius: 16px;
+    width: fit-content;
+    padding: 30px;
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+
+a,
+button {
     color: var(--fucsia);
     background: none;
     border: none;
     font: inherit;
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
     transition: color 0.2s;
 }
 
-a:hover, button:hover {
+a:hover,
+button:hover {
     color: #c8007e;
 }
 
@@ -102,6 +289,11 @@ a:hover, button:hover {
     width: 8px;
     background: var(--gray-bg);
 }
+
 ::-webkit-scrollbar-thumb {
     background: var(--fucsia);
+}
+
+::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }

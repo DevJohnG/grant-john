@@ -42,6 +42,33 @@ const ProductModel = {
             category,
         };
     },
+    deleteById: (id) => {
+        const initialLength = db.products.length;
+        db.products = db.products.filter(p => p.id !== id);
+        return db.products.length < initialLength;
+    },
+    updateById: (id, { name, price, categoryId }) => {
+        const productIndex = db.products.findIndex(p => p.id === id);
+        if (productIndex === -1) {
+            return null;
+        }
+
+        if (categoryId) {
+            const categoryExists = CategoryModel.findById(categoryId);
+            if (!categoryExists) {
+                return null;
+            }
+        }
+
+        db.products[productIndex] = {
+            ...db.products[productIndex], // Mantiene los campos existentes
+            name: name !== undefined ? name : db.products[productIndex].name,
+            price: price !== undefined ? price : db.products[productIndex].price,
+            categoryId: categoryId !== undefined ? categoryId : db.products[productIndex].categoryId,
+        };
+
+        return ProductModel.findById(id);
+    }
 };
 
 const CategoryModel = {
@@ -85,7 +112,8 @@ const fastify = Fastify({
 });
 
 fastify.register(cors, {
-    origin: "*",
+    origin: "http://127.0.0.1:5500",
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 });
 
 fastify.get("/api/v1/categories", (req, res) => {
@@ -106,14 +134,65 @@ fastify.get("/api/v1/products/:id", (req, res) => {
     return ProductModel.findById(req.params.id);
 });
 
-fastify.post("/api/v1/products", (req, res) => {
+fastify.post("/api/v1/products", (req, reply) => {
     const { name, price, categoryId } = req.body;
-    return ProductModel.create({ name, price, categoryId });
+    const categoryExists = CategoryModel.findById(categoryId);
+    if (!categoryExists) {
+        return reply.status(400).send({ message: 'Category ID not found' });
+    }
+
+    const newProduct = ProductModel.create({ name, price, categoryId });
+    return reply.status(201).send(newProduct);
 });
+
+fastify.put("/api/v1/products/:id", (request, reply) => {
+    const { id } = request.params;
+    const { name, price, categoryId } = request.body;
+    if (name === undefined && price === undefined && categoryId === undefined) {
+        return reply.status(400).send({ message: 'No se proporcionaron datos para actualizar.' });
+    }
+
+    const updatedProduct = ProductModel.updateById(id, { name, price, categoryId });
+
+    if (!updatedProduct) {
+        const categoryExists = categoryId ? CategoryModel.findById(categoryId) : true;
+        if (!categoryExists) {
+             return reply.status(400).send({ message: 'Category ID not found' });
+        }
+        return reply.status(404).send({ message: 'Producto no encontrado.' });
+    }
+
+    return reply.status(200).send(updatedProduct);
+});
+
+fastify.delete("/api/v1/products/:id", async (request, reply) => {
+    try {
+        const { id } = request.params;
+
+        fastify.log.info(`Attempting to delete product with ID: ${id}`);
+
+        const wasDeleted = ProductModel.deleteById(id);
+
+        if (!wasDeleted) {
+            fastify.log.warn(`Product with ID: ${id} not found for deletion.`);
+            return reply.status(404).send({ error: 'Producto no encontrado' });
+        }
+
+        fastify.log.info(`Product with ID: ${id} deleted successfully.`);
+        return reply.status(204).send();
+    } catch (error) {
+
+        fastify.log.error(`Error during product deletion for ID ${request.params.id}:`, error);
+
+        return reply.status(500).send({ error: 'Error interno del servidor al eliminar el producto.' });
+    }
+});
+
 
 const start = async () => {
     try {
         await fastify.listen({ port: PORT });
+        console.log(`Servidor Fastify escuchando en http://localhost:${PORT}`);
     } catch (err) {
         console.error(err);
         process.exit(1);
