@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('transactionId').textContent = params.get('payment_intent');
     }
 
-    // Clean up local storage
     localStorage.removeItem('orderConfirmation');
     localStorage.removeItem('selectedProduct');
 });
