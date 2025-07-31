@@ -223,55 +223,29 @@ fastify.delete("/api/v1/products/:id", async (request, reply) => {
 
 fastify.post("/api/v1/create-payment-intent", async (request, reply) => {
     try {
-        const { productId, quantity = 1, customization } = request.body;
+        const { amount, currency, customization_data } = request.body;
 
-        if (!productId) {
-            return reply.status(400).send({ error: 'Product ID is required' });
+        if (!amount || !currency) {
+            return reply.status(400).send({ error: 'Amount and currency are required' });
         }
 
-        let product;
-        let amount;
-
-        // Handle custom products
-        if (productId.startsWith('custom-') || productId.startsWith('order-')) {
-            if (customization && customization.budget) {
-                amount = Math.round(customization.budget * quantity * 100);
-                product = {
-                    name: customization.title || 'Producto Personalizado',
-                    price: customization.budget
-                };
-            } else {
-                return reply.status(400).send({ error: 'Budget is required for custom products' });
-            }
-        } else {
-            // Get product details from database
-            product = await Product.findById(productId);
-            if (!product) {
-                return reply.status(404).send({ error: 'Product not found' });
-            }
-            amount = Math.round(product.price * quantity * 100);
-        }
-
-        // Create payment intent
+        // Create a PaymentIntent with the order amount and currency
         const paymentIntent = await stripe.paymentIntents.create({
             amount: amount,
-            currency: 'usd',
+            currency: currency,
             metadata: {
-                productId: productId,
-                productName: product.name,
-                quantity: quantity.toString(),
-                customization: customization ? JSON.stringify(customization) : null
+                product_id: customization_data?.productId || 'N/A',
+                product_name: customization_data?.productName || 'N/A',
+                custom_phrase: customization_data?.customPhrase || 'N/A'
             }
         });
 
-        return reply.send({
-            clientSecret: paymentIntent.client_secret,
-            amount: amount,
-            productName: product.name
+        reply.send({
+            client_secret: paymentIntent.client_secret,
         });
     } catch (error) {
-        fastify.log.error('Error creating payment intent:', error);
-        return reply.status(500).send({ error: 'Error creating payment intent' });
+        fastify.log.error('Stripe Error:', error);
+        reply.status(500).send({ error: error.message });
     }
 });
 

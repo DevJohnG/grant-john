@@ -3,142 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicita un personalizado - @madebygreechh</title>
+    <title>Compra de Producto</title>
     <link rel="stylesheet" href="customize.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="customize.js" defer></script>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <h1 class="logo">@madebygreechh</h1>
-                <nav class="nav">
-                    <a href="catalog.html" class="nav-link">Catálogo</a>
-                    <a href="customize.html" class="nav-link">Personalizar</a>
-                </nav>
+    <header class="site-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://res.cloudinary.com/dxloogjhu/image/upload/v1753932213/Screenshot_2024-12-23_180246_my9qw5.png" 
+                     alt="@madebygreechh" class="logo">
+                <h1>@madebygreechh</h1>
+            </div>
+            <div class="header-icons">
+                <span><a href="catalog.html" class="nav-link">Catálogo</a></span>
+                <span><a href="index.html" class="nav-link">Admin</a></span>
             </div>
         </div>
     </header>
+    <div class="container">
+        <header class="product-header">
+            <a href="catalog.html" class="back-link">&larr; Volver al Catálogo</a>
+            <h1 class="product-title">Compra de Producto</h1>
+        </header>
 
-    <main class="container">
-        <div class="hero-section">
-            <h2>Solicita tu Producto Personalizado</h2>
-            <p>Describe tu idea y nosotros la haremos realidad</p>
-        </div>
-
-        <div class="customize-container">
-            <div class="form-section">
-                <form id="customizeForm">
-                    <div class="selected-product" id="selectedProduct" style="display: none;">
-                        <h3>Producto Seleccionado</h3>
-                        <div class="product-info">
-                            <img id="selectedProductImage" src="" alt="Producto seleccionado">
-                            <div>
-                                <h4 id="selectedProductName"></h4>
-                                <p id="selectedProductPrice"></p>
-                            </div>
+        <main class="customizer-main">
+            <div class="customizer-content">
+                <!-- Columna Izquierda: Formulario de Personalización -->
+                <div class="form-column">
+                    <div class="permanent-labels">
+                        <label id="categoryLabel" class="permanent-label category"></label>
+                        <label id="subcategoryLabel" class="permanent-label subcategory"></label>
+                    </div>
+                    <div class="product-image-mobile">
+                        <img id="productImage" src="https://via.placeholder.com/400" alt="Producto seleccionado">
+                    </div>
+                    <form id="customizeForm">
+                        <div class="form-group">
+                            <label for="customPhrase" class="form-label">Frase / Nombre Personalizado</label>
+                            <input type="text" id="customPhrase" name="customPhrase" class="form-input" placeholder="Escribe tu texto aquí..." required>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nombre">Nombre Completo</label>
-                        <input type="text" id="nombre" required placeholder="Tu nombre completo">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email de Contacto</label>
-                        <input type="email" id="email" required placeholder="tu@email.com">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="telefono">Teléfono</label>
-                        <input type="tel" id="telefono" required placeholder="+507 1234-5678">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="descripcion">Descripción de tu Proyecto</label>
-                        <textarea id="descripcion" required placeholder="Describe detalladamente lo que necesitas..." rows="4"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="presupuesto">Presupuesto Estimado</label>
-                        <select id="presupuesto" required>
-                            <option value="">Selecciona tu rango de presupuesto</option>
-                            <option value="B/. 50 - B/. 150">B/. 50 - B/. 150</option>
-                            <option value="B/. 150 - B/. 300">B/. 150 - B/. 300</option>
-                            <option value="B/. 300 - B/. 500">B/. 300 - B/. 500</option>
-                            <option value="B/. 500 - B/. 1000">B/. 500 - B/. 1000</option>
-                            <option value="Más de B/. 1000">Más de B/. 1000</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="submit-btn">Solicitar Cotización</button>
-                </form>
-            </div>
-
-            <div class="info-section">
-                <div class="info-card">
-                    <h3>¿Cómo Funciona?</h3>
-                    <div class="steps">
-                        <div class="step">
-                            <span class="step-number">1</span>
-                            <p>Completa el formulario con tu idea</p>
+                        <div class="price-display">
+                            <span class="price-label">Precio:</span>
+                            <span id="productPrice" class="price-value">B/. 0.00</span>
                         </div>
-                        <div class="step">
-                            <span class="step-number">2</span>
-                            <p>Recibe una cotización personalizada</p>
-                        </div>
-                        <div class="step">
-                            <span class="step-number">3</span>
-                            <p>Aprueba el diseño y realizamos tu producto</p>
-                        </div>
+                        <button type="submit" class="submit-btn">Comprar Ahora</button>
+                    </form>
+                </div>
+
+                <!-- Columna Derecha: Vista Previa del Producto -->
+                <div class="preview-column">
+                    <div class="product-image-container">
+                        <img id="productPreviewImage" src="https://via.placeholder.com/600" alt="Vista previa del producto">
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Procesar Pago</h3>
+                <h3>Completa tu Pago</h3>
                 <span class="close">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="payment-summary">
+                <div class="order-summary">
                     <h4>Resumen del Pedido</h4>
-                    <div class="order-details">
-                        <p><strong>Nombre:</strong> <span id="orderName">-</span></p>
-                        <p><strong>Email:</strong> <span id="orderEmail">-</span></p>
-                        <p><strong>Proyecto:</strong> <span id="orderProject">-</span></p>
-                        <p><strong>Presupuesto:</strong> <span id="orderBudget">-</span></p>
-                        <p><strong>Total a Pagar:</strong> <span id="orderTotal">B/. 50.00</span></p>
+                    <p><strong>Producto:</strong> <span id="orderProductName"></span></p>
+                    <p><strong>Personalización:</strong> <span id="orderCustomization"></span></p>
+                    <p><strong>Total:</strong> <span id="orderTotal" class="total-price"></span></p>
+                </div>
+                <form id="payment-form">
+                    <div id="card-element">
+                        <!-- A Stripe Element will be inserted here. -->
                     </div>
-                </div>
-                
-                <div id="card-element">
-                    <!-- Stripe Elements will create form elements here -->
-                </div>
-                
-                <div id="card-errors" role="alert"></div>
-                
-                <button id="payBtn" class="pay-btn">
-                    <span id="payBtnText">Pagar Cotización B/. 50.00</span>
-                    <div id="payBtnSpinner" class="spinner" style="display: none;"></div>
-                </button>
+                    <div id="card-errors" role="alert"></div>
+                    <button id="payBtn" class="pay-button">
+                        <span id="payBtnText">Pagar Ahora</span>
+                        <div id="payBtnSpinner" class="spinner" style="display: none;"></div>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
-
-    <!-- Loading Overlay -->
+    
     <div id="loadingOverlay" class="loading-overlay" style="display: none;">
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-            <p>Procesando solicitud...</p>
-        </div>
+        <div class="spinner"></div>
     </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="customize.js"></script>
 </body>
 </html>

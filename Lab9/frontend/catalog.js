@@ -218,7 +218,15 @@
     window.selectProduct = function() {
         if (selectedProduct) {
             // Store selected product in localStorage
-            localStorage.setItem('selectedProduct', JSON.stringify(selectedProduct));
+            const productToStore = {
+                id: selectedProduct._id,
+                name: selectedProduct.name,
+                price: selectedProduct.price,
+                image: selectedProduct.imageUrl,
+                category: selectedProduct.category.name,
+                subcategory: selectedProduct.subCategory
+            };
+            localStorage.setItem('selectedProduct', JSON.stringify(productToStore));
             
             // Redirect to customize page
             window.location.href = 'customize.html';
