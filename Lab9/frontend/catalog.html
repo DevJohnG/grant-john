@@ -9,23 +9,22 @@
     <script src="catalog.js" defer></script>
 </head>
 <body>
-    <header>
+    <header class="site-header">
         <div class="header-content">
-            <div class="logo-section">
-                <img src="https://res.cloudinary.com/dxloogjhu/image/upload/v1753932213/Screenshot_2024-12-23_180246_my9qw5.png" 
-                     alt="@madebygreechh" class="logo">
-                <h1>@madebygreechh</h1>
-            </div>
+            <a href="catalog.html" class="logo-section-link">
+                <div class="logo-section">
+                    <img src="https://res.cloudinary.com/dxloogjhu/image/upload/v1753932213/Screenshot_2024-12-23_180246_my9qw5.png" 
+                         alt="@madebygreechh" class="logo">
+                    <h1>@madebygreechh</h1>
+                </div>
+            </a>
             <div class="header-icons">
-                <span>⚙</span>
-                <span>👤</span>
-                <span>💬</span>
+                <a href="index.html" class="nav-link" title="Dashboard">📊 Admin</a>
             </div>
         </div>
     </header>
 
     <main class="main-container">
-        <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
                 <h2>Tus Ideas, Hechas Realidad</h2>
@@ -38,15 +37,12 @@
             </div>
         </section>
 
-        <!-- Categories Section -->
         <section class="categories-section" id="categories">
             <h3>Categorías</h3>
             <div class="categories-grid" id="categoriesGrid">
-                <!-- Categories will be loaded dynamically -->
             </div>
         </section>
 
-        <!-- Products Section -->
         <section class="products-section" id="products">
             <h3>Productos</h3>
             <div class="filter-bar">
@@ -56,11 +52,9 @@
                 <input type="text" id="searchInput" placeholder="Buscar productos..." class="search-input">
             </div>
             <div class="products-grid" id="productsGrid">
-                <!-- Products will be loaded dynamically -->
             </div>
         </section>
 
-        <!-- How it Works Section -->
         <section class="how-it-works">
             <h3>Cómo Funciona</h3>
             <div class="steps-grid">
@@ -83,7 +77,6 @@
         </section>
     </main>
 
-    <!-- Product Selection Modal -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -108,7 +101,6 @@
         </div>
     </div>
 
-    <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay" style="display: none;">
         <div class="loading-spinner">
             <div class="spinner"></div>

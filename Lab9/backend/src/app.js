@@ -229,7 +229,6 @@ fastify.post("/api/v1/create-payment-intent", async (request, reply) => {
             return reply.status(400).send({ error: 'Amount and currency are required' });
         }
 
-        // Create a PaymentIntent with the order amount and currency
         const paymentIntent = await stripe.paymentIntents.create({
             amount: amount,
             currency: currency,
@@ -257,11 +256,9 @@ fastify.post("/api/v1/confirm-payment", async (request, reply) => {
             return reply.status(400).send({ error: 'Payment Intent ID is required' });
         }
 
-        // Retrieve payment intent to get details
         const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
         
         if (paymentIntent.status === 'succeeded') {
-            // Here you could save order details to database, send confirmation email, etc.
             return reply.send({
                 success: true,
                 orderId: paymentIntent.id,

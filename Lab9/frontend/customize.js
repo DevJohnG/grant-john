@@ -7,7 +7,6 @@
     let card;
     let selectedProduct = null;
 
-    // Initialize Stripe
     function initializeStripe() {
         stripe = Stripe(STRIPE_PUBLIC_KEY);
         elements = stripe.elements();
@@ -29,7 +28,6 @@
         });
     }
 
-    // DOM Elements
     const dom = {
         customizeForm: document.getElementById('customizeForm'),
         categoryLabel: document.getElementById('categoryLabel'),
@@ -50,7 +48,6 @@
         closeModal: document.querySelector('.close')
     };
 
-    // Load selected product from localStorage
     function loadSelectedProduct() {
         const productData = localStorage.getItem('selectedProduct');
         if (productData) {
@@ -63,12 +60,9 @@
             }
         } else {
             alert('No hay ningún producto seleccionado. Por favor, selecciona uno del catálogo.');
-            // Optionally, redirect back to catalog
-            // window.location.href = 'catalog.html';
         }
     }
 
-    // Display product details
     function displayProductDetails() {
         if (!selectedProduct) return;
 
@@ -82,7 +76,6 @@
         }
     }
 
-    // Handle form submission
     function handleFormSubmit(e) {
         e.preventDefault();
         
@@ -95,7 +88,6 @@
         showPaymentModal(customizationText);
     }
 
-    // Show payment modal
     function showPaymentModal(customizationText) {
         dom.orderProductName.textContent = selectedProduct.name;
         dom.orderCustomization.textContent = customizationText;
@@ -108,7 +100,6 @@
         }
     }
 
-    // Handle payment
     async function handlePayment() {
         if (!stripe || !card) {
             console.error('Stripe not initialized');
@@ -133,7 +124,7 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    amount: Math.round(selectedProduct.price * 100), // Price in cents
+                    amount: Math.round(selectedProduct.price * 100),
                     currency: 'usd',
                     customization_data: {
                         productId: selectedProduct.id,
@@ -157,7 +148,6 @@
                 dom.cardErrors.textContent = paymentError.message;
                 showLoading(false);
             } else {
-                // Payment successful
                 localStorage.setItem('orderConfirmation', JSON.stringify({
                     productName: selectedProduct.name,
                     customization: dom.customPhraseInput.value,
@@ -172,7 +162,6 @@
         }
     }
 
-    // Utility functions
     function formatCurrency(amount) {
         return new Intl.NumberFormat('es-PA', {
             style: 'currency',
@@ -188,7 +177,6 @@
         dom.payBtnSpinner.style.display = show ? 'inline-block' : 'none';
     }
 
-    // Event listeners
     function setupEventListeners() {
         dom.customizeForm?.addEventListener('submit', handleFormSubmit);
         dom.payBtn?.addEventListener('click', handlePayment);
@@ -204,7 +192,6 @@
         });
     }
 
-    // Initialize
     function init() {
         initializeStripe();
         loadSelectedProduct();

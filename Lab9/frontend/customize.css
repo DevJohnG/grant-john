@@ -1,4 +1,3 @@
-/* General Body and Container Styles */
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #f4f4f9;
@@ -13,7 +12,6 @@ body {
     padding: 20px;
 }
 
-/* Site Header */
 .site-header {
     background: #ffffff;
     padding: 15px 30px;
@@ -108,12 +106,11 @@ body {
     align-items: flex-start;
 }
 
-/* Left Column: Form */
 .form-column {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 50%;
+    height: 60%;
     background: #ffffff;
     padding: 50px;
     border-radius: 12px;
@@ -148,7 +145,7 @@ body {
 }
 
 .product-image-mobile {
-    display: none; /* Hidden on desktop */
+    display: none;
     width: 100%;
     max-width: 300px;
     margin: 20px auto;
@@ -231,7 +228,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Right Column: Image Preview */
 .preview-column {
     display: flex;
     justify-content: center;
@@ -253,7 +249,6 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Payment Modal */
 .modal {
     display: none;
     position: fixed;
@@ -402,10 +397,10 @@ body {
         grid-template-columns: 1fr;
     }
     .preview-column {
-        display: none; /* Hide on smaller screens, use mobile view */
+        display: none;
     }
     .product-image-mobile {
-        display: block; /* Show on smaller screens */
+        display: block;
     }
     .product-header {
         margin-bottom: 20px;
