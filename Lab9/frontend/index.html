@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@madebygreechh</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <main>
+
+        <section class="card">
+            <div class="card-content">
+                <h1>@madebygreechh</h1>
+                <h2>Emprendimiento de personalizados</h2>
+                <div class="navigation-buttons">
+                    <a href="customize.html" class="nav-btn customize-btn">
+                        🛍️ Solicitar Personalizado
+                    </a>
+                    <a href="order-confirmation.html" class="nav-btn orders-btn">
+                        📋 Ver Pedidos
+                    </a>
+                </div>
+                <div class="addProductButtomDiv">
+            <button class="buttonStyleMas" id="buttonShow">+ Producto</button>
+        </div>
+        <div class="table-controls">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="inputStyle" placeholder="Buscar por ID o nombre...">
+            </div>
+            <div class="sort-container">
+                <label for="sortSelect" class="inputTitle">Ordenar por:</label>
+                <select id="sortSelect" class="selectStyle">
+                    <option value="default">Por defecto</option>
+                    <option value="category-asc">Categoría (A-Z)</option>
+                    <option value="category-desc">Categoría (Z-A)</option>
+                    <option value="subcategory-asc">Subcategoría (A-Z)</option>
+                    <option value="subcategory-desc">Subcategoría (Z-A)</option>
+                    <option value="price-asc">Precio (Menor a Mayor)</option>
+                    <option value="price-desc">Precio (Mayor a Menor)</option>
+                </select>
+            </div>
+        </div>
+                <table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Categoría</th>
+            <th>Sub Categoría</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody class="products-table">
+    </tbody>
+</table>
+
+<dialog id="formDialog" class="formDialog">
+    <section class="addProductSection">
+        <div class="addProducts">
+            <form action="">
+                <div class="addProductContentDiv">
+                    <div class="addProductContentTitleContainer">
+                        <label class="inputTitle">Categoría del producto:</label>
+                    </div>
+                    <div class="addProductContentContainer">
+                        <select id="category" class="selectStyle" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="addProductContentDiv">
+                    <div class="addProductContentTitleContainer">
+                        <label class="inputTitle">Subcategoría del producto:</label>
+                    </div>
+                    <div class="addProductContentContainer">
+                        <select id="subCategory" class="selectStyle" required disabled>
+                            <option value="">Seleccione una subcategoría</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="addProductContentDiv">
+                    <div class="addProductContentTitleContainer">
+                        <label class="inputTitle">Nombre del producto:</label>
+                    </div>
+                    <div class="addProductContentContainer">
+                        <input type="text" id="productname" class="inputStyle" placeholder="Nombre del Producto" maxlength="50" required>
+                    </div>
+                </div>
+                <div class="addProductContentDiv">
+                    <div class="addProductContentTitleContainer">
+                        <label class="inputTitle">Precio:</label>
+                    </div>
+                    <div class="addProductContentContainer">
+                        <input type="number" id="productprize" placeholder="B/. 0.00" class="inputStyle" step="0.01" min="0" max="100" required>
+                    </div>
+                </div>
+
+                <div class="addProductContentDiv">
+                    <div class="addProductContentTitleContainer">
+                        <label class="inputTitle">URL de Imagen:</label>
+                    </div>
+                    <div class="addProductContentContainer">
+                        <input type="url" id="imageUrl" class="inputStyle" placeholder="https://ejemplo.com/imagen.jpg">
+                    </div>
+                </div>
+
+                <br>
+                <div class="buttonDiv">
+                    <input type="submit" value="ADD" class="buttonStyle">
+                    <button type="button" class="buttonStyle" id="dialogCancelButton">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    </main>
+</body>
+
+</html>

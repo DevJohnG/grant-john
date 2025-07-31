@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantilla App</title>
+  <style>
+    /* Agrega tus estilos aquí */
+  </style>
+</head>
+<body>
+  <h1>Plantilla App</h1>
+  <!-- Agrega tus elementos HTML aquí -->
+  <!-- Ejemplo: -->
+  <!-- <div id="salida"></div> -->
+
+  <script>
+    (() => {
+      const App = {
+        htmlElements: {
+          // Obtén referencias a tus elementos HTML aquí
+          // Ejemplo:
+          // salida: document.querySelector('#salida'),
+        },
+        init() {
+          // Inicializa la lógica de tu aplicación aquí
+          // Llama a métodos desde App.methods, inicializa eventos, etc.
+          // Ejemplo:
+          // App.methods.hacerAlgo();
+        },
+        methods: {
+          // Define los métodos de tu aplicación aquí
+          // Ejemplo:
+          // hacerAlgo() {
+          //   const elemento = App.htmlElements.salida;
+          //   elemento.textContent = '¡Hola desde App!';
+          // },
+          // imprimir(elemento, texto) {
+          //   elemento.innerHTML += `<p>${texto}</p>`;
+          // }
+        },
+      };
+
+      // Inicializa la App
+      App.init();
+    })();
+  </script>
+  <script>
+    // Ejemplo #1
+    // En este ejemplo se muestra cómo se puede imprimir un texto en un div.
+    (() => {
+      const App = {
+        htmlElements: {
+          salida: document.querySelector('#salida'),
+        },
+        init() {
+          App.htmlElements.salida.textContent = '¡Hola desde App!';
+        },
+      };
+      App.init();
+    })();
+  </script>
+  <script>
+    // Ejemplo #2
+    // En este ejemplo se muestra cómo se puede imprimir el valor de un input en un div.
+    (() => {
+      const App = {
+        htmlElements: {
+          entrada: document.querySelector('#entrada'),
+          salida: document.querySelector('#salida'),
+        },
+        init() {
+          App.htmlElements.entrada.addEventListener('input', App.imprimir);
+        },
+        imprimir(evento) {
+          App.htmlElements.salida.innerHTML += `<p>${evento.target.value}</p>`;
+        },
+      };
+      App.init();
+    })();
+  </script>
+  <script>
+    // Ejemplo #3
+    // En este ejemplo se muestra cómo se puede leer el valor de un input después de que el usuario haga submit en un formulario.
+    (() => {
+      const App = {
+        htmlElements: {
+          formulario: document.querySelector('#formulario'),
+          salida: document.querySelector('#salida'),
+        },
+        init() {
+          App.htmlElements.formulario.addEventListener('submit', App.imprimir);
+        },
+        imprimir(evento) {
+          evento.preventDefault();
+          App.htmlElements.salida.innerHTML += `<p>${evento.target.value}</p>`;
+        },
+      };
+      App.init();
+    })();
+  </script>
+</body>
+</html>

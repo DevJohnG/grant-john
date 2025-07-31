@@ -10,38 +10,16 @@ yarn-error.log*
 .pnp.js
 
 # pnpm
-.pnpm-store/         # Ignora el store global de pnpm
-pnpm-debug.log* # Logs de depuración de pnpm
-# pnpm-lock.yaml
-.pnpm-state.json     # Archivo de estado de pnpm
+.pnpm-store/         
+pnpm-debug.log* 
+.pnpm-state.json
 
 # Variables de entorno
 .env
 .env.local
 .env.*.local
 
-# Build artifacts
-dist/       # Carpeta de salida de builds de Vite/React
-build/      # Otra posible carpeta de salida
-.next/      # Si usas Next.js
-out/        # Si usas Next.js
-
-# Editores de código e IDEs
-.vscode/        # Configuración de VS Code (opcional, si quieres compartir configuraciones, quita esta línea)
-.idea/          # Archivos de JetBrains IDEs (WebStorm, IntelliJ)
-*.swp           # Archivos de swap de Vim
-
 # Sistema operativo
-.DS_Store       # macOS
-Thumbs.db       # Windows
-ehthumbs.db     # Windows
-Desktop.ini     # Windows
-
-# Archivos de testing
-/coverage/      # Carpetas de reportes de cobertura de tests
-
-# Archivos temporales
-*.tmp
-*.bak
-*.swp
-*.swo
+Thumbs.db
+ehthumbs.db
+Desktop.ini

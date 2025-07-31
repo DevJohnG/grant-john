@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorio #2</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <h1>Laboratorio #2</h1>
+  </section>
+  <section>
+    <h2>Problema #1</h2>
+    <hr>
+    <div id="resp1"></div>
+  </section>
+  <section>
+    <h2>Problema #2</h2>
+    <hr>
+    <div id="resp2"></div>
+  </section>
+  <section>
+    <h2>Problema #3</h2>
+    <hr>
+    <div id="resp3"></div>
+  </section>
+  <section>
+    <h2>Problema #4</h2>
+    <hr>
+    <div id="resp4"></div>
+  </section>
+  <script>
+    ((a, b) => {
+      const App = {
+        htmlElements: {
+          resp1: document.querySelector('#resp1'),
+          resp2: document.querySelector('#resp2'),
+          resp3: document.querySelector('#resp3'),
+          resp4: document.querySelector('#resp4'),
+        },
+        init() {
+          App.methods.resp1();
+          App.methods.resp2();
+          App.methods.resp3();
+          App.methods.resp4();
+        },
+        methods: {
+          resp1() {
+            const element = App.htmlElements.resp1;
+            App.methods.print(element, a + b);
+            App.methods.print(element, a - b);
+            App.methods.print(element, a * b);
+            App.methods.print(element, a / b);
+          },
+          resp2() {
+            let nombre = 'Erick', apellido = 'Agrazal';
+            const element = App.htmlElements.resp2;
+            App.methods.print(element, `${nombre} ${apellido}`);
+          },
+          resp3() {
+            const ano = 2025, titulo = 'Laboratorio #2';
+            const { resp3 } = App.htmlElements;
+            App.methods.print(resp3, `Los tipos de dato son: [${typeof ano}, ${typeof titulo}]`);
+          },
+          resp4() {
+            const { resp4 } = App.htmlElements;
+            const obj = {
+              nombre: 'Erick El Mejor Profe',
+              edad: 34,
+              activo: true,
+              metadata: {
+                lat: 12.1231231237272,
+                long: 29.1237721783781,
+              }
+            };
+
+            const keys = Object.keys(obj);
+            const values = Object.values(obj);
+            const entries = Object.entries(obj);
+            App.methods.print(resp4, `Las llaves son: ${keys}`);
+            App.methods.print(resp4, `Las values son: ${JSON.stringify(values)}`);
+            App.methods.print(resp4, `Las entries son: ${JSON.stringify(entries)}`);
+
+            for(let i = 0; i < keys.length; i++) {
+              App.methods.print(resp4, `Values con for: ${JSON.stringify(obj[keys[i]])}`);
+            }
+
+            keys.forEach((key) => {
+              App.methods.print(resp4, `Values con forEach: ${JSON.stringify(obj[key])}`);
+            });
+
+            const newKeys = keys.map((key) => {
+              return `__${key}__`;
+            })
+            App.methods.print(resp4, `Values con map: ${JSON.stringify(newKeys)}`);
+
+            const filteredKeys = keys.filter((key) => {
+              return typeof obj[key] !== 'object';
+            });
+            App.methods.print(resp4, `Values con filtered: ${JSON.stringify(filteredKeys)}`);
+            const newObj = {}
+            filteredKeys.forEach(key => newObj[key] = obj[key]);
+
+            const estudiantes = [
+              {
+                id: 1,
+                nombre: 'Erick'
+              },
+              {
+                id: 2,
+                nombre: 'Vicente'
+              },
+              {
+                id: 3,
+                nombre: 'Enrique'
+              }
+            ];
+
+            const readId = 3;
+            const estudiante = estudiantes.find(({ id }) => id === readId);
+            App.methods.print(resp4, `Values con find: ${JSON.stringify(estudiante)}`);
+          },
+          print(element, text) {
+            element.innerHTML += `<p>${text}</p>`;
+          }
+        },
+      };
+      App.init();
+    })(10, 20);
+  </script>
+  <script>
+    function calculadora(fn, a, b) {
+      console.log(fn(a, b));
+    }
+
+    function suma(a, b) {
+      return a + b;
+    }
+    calculadora(suma, 10, 20);
+  </script>
+</body>
+</html>

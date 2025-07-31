@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - @madebygreechh</title>
+    <link rel="stylesheet" href="catalog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="catalog.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="https://res.cloudinary.com/dxloogjhu/image/upload/v1753932213/Screenshot_2024-12-23_180246_my9qw5.png" 
+                     alt="@madebygreechh" class="logo">
+                <h1>@madebygreechh</h1>
+            </div>
+            <div class="header-icons">
+                <span>⚙</span>
+                <span>👤</span>
+                <span>💬</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Tus Ideas, Hechas Realidad</h2>
+                <p>Tras tu visión a la realidad con nuestras manualidades personalizadas</p>
+                <button class="cta-button" onclick="scrollToCategories()">Cotizar</button>
+            </div>
+            <div class="hero-image">
+                <img src="https://res.cloudinary.com/dxloogjhu/image/upload/v1753932393/vasos_m%C3%A1gicos_turquesa_chbahb.jpg" 
+                     alt="Vasos mágicos turquesa" class="hero-product-image">
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section" id="categories">
+            <h3>Categorías</h3>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <h3>Productos</h3>
+            <div class="filter-bar">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">Todas las categorías</option>
+                </select>
+                <input type="text" id="searchInput" placeholder="Buscar productos..." class="search-input">
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </section>
+
+        <!-- How it Works Section -->
+        <section class="how-it-works">
+            <h3>Cómo Funciona</h3>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-icon">✏️</div>
+                    <h4>Cotiza tu Idea</h4>
+                    <p>Describe tu idea para una cotización personalizada</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">✅</div>
+                    <h4>Aprueba el Diseño</h4>
+                    <p>Revisa y aprueba el boceto antes de la producción</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">💬</div>
+                    <h4>Recibe tu Personalizado</h4>
+                    <p>Recibe tu producto único hecho especialmente para ti</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Selection Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Seleccionar Producto</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="product-details">
+                    <img id="modalProductImage" src="" alt="" class="modal-product-image">
+                    <div class="product-info">
+                        <h4 id="modalProductName"></h4>
+                        <p><strong>Categoría:</strong> <span id="modalProductCategory"></span></p>
+                        <p><strong>Subcategoría:</strong> <span id="modalProductSubcategory"></span></p>
+                        <p><strong>Precio:</strong> <span id="modalProductPrice"></span></p>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeProductModal()">Cancelar</button>
+                    <button class="btn-primary" onclick="selectProduct()">Comprar Este Producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Cargando catálogo...</p>
+        </div>
+    </div>
+</body>
+</html>

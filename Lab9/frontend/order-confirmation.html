@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pedido - @madebygreechh</title>
+    <link rel="stylesheet" href="order-confirmation.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="order-confirmation.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">@madebygreechh</h1>
+                <nav class="nav">
+                    <a href="catalog.html" class="nav-link">Catálogo</a>
+                    <a href="customize.html" class="nav-link">Personalizar</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="order-header">
+            <h2>¡Pedido Confirmado!</h2>
+            <div class="order-id">Pedido #<span id="orderId">12345</span></div>
+        </div>
+
+        <div class="order-details">
+            <div class="order-summary">
+                <h3>Resumen del Pedido</h3>
+                <div class="product-info">
+                    <h4 id="productName">Mesa de Comedor Personalizada</h4>
+                    <div class="customization-details">
+                        <div class="detail-row">
+                            <span class="label">Nombre:</span>
+                            <span class="value" id="customerName">Juan Pérez</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Colores:</span>
+                            <span class="value" id="colors">Roble Natural</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Materiales:</span>
+                            <span class="value" id="materials">Madera de Roble</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Dimensiones:</span>
+                            <span class="value" id="dimensions">180cm x 90cm x 75cm</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Presupuesto:</span>
+                            <span class="value" id="budget">B/. 800.00</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Comentarios:</span>
+                            <span class="value" id="comments">Mesa para 6 personas, diseño moderno</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <h3>Estado del Pedido</h3>
+                <div class="status-timeline">
+                    <div class="status-step completed">
+                        <div class="step-icon">✓</div>
+                        <div class="step-content">
+                            <h4>Pedido Recibido</h4>
+                            <p>Tu solicitud ha sido registrada exitosamente</p>
+                        </div>
+                    </div>
+                    <div class="status-step active">
+                        <div class="step-icon">🔄</div>
+                        <div class="step-content">
+                            <h4>En Procesamiento</h4>
+                            <p>Nuestro equipo está revisando tu solicitud</p>
+                        </div>
+                    </div>
+                    <div class="status-step">
+                        <div class="step-icon">💰</div>
+                        <div class="step-content">
+                            <h4>Pago Confirmado</h4>
+                            <p>Procesamiento del pago completado</p>
+                        </div>
+                    </div>
+                    <div class="status-step">
+                        <div class="step-icon">�</div>
+                        <div class="step-content">
+                            <h4>En Producción</h4>
+                            <p>Tu producto está siendo fabricado</p>
+                        </div>
+                    </div>
+                    <div class="status-step">
+                        <div class="step-icon">�</div>
+                        <div class="step-content">
+                            <h4>Listo para Entrega</h4>
+                            <p>Tu pedido está listo para ser entregado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-actions">
+            <button class="btn btn-primary" onclick="window.print()">Imprimir Confirmación</button>
+            <button class="btn btn-secondary" onclick="window.location.href='catalog.html'">Seguir Comprando</button>
+        </div>
+    </main>
+
+    <script src="https://js.stripe.com/v3/"></script>
+</body>
+</html>
